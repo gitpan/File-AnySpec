@@ -18,28 +18,22 @@
 use ExtUtils::MakeMaker;
 
 my $tests = join ' ',unix2os('t/File/AnySpec.t');
-my $exe;
-if( $exe ) {
-  $exe = [join ' ',unix2os($exe)];
-}
-else {
-   $exe = [];
-}
+
 
 WriteMakefile(
     NAME => 'File::AnySpec',
     DISTNAME => 'File-AnySpec',
-    VERSION  => '0.01',
+    VERSION  => '0.02',
     dist     => {COMPRESS => 'gzip',
                 'gz' => 'gz'},
     test     => {TESTS => $tests},
     PREREQ_PM => {'File::SmartNL' => '0',
-'File::Package' => '0',
-'File::TestPath' => '0',
-'Test::STD::Scrub' => '0',
-'Test::Tech' => '1.08',
-'File::PM2File' => '0',},
-    EXE_FILES => $exe,
+                  'File::Package' => '0',
+                  'File::TestPath' => '0',
+                  'Text::Scrub' => '0',
+                  'Test::Tech' => '1.08',
+                  'File::PM2File' => '0',},
+    
 
     ($] >= 5.005 ?     
         (AUTHOR    => 'SoftwareDiamonds.com E<lt>support@SoftwareDiamonds.comE<gt>',

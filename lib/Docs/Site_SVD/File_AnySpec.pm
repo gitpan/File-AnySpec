@@ -10,23 +10,23 @@ use warnings;
 use warnings::register;
 
 use vars qw($VERSION $DATE $FILE );
-$VERSION = '0.01';
-$DATE = '2003/07/04';
+$VERSION = '0.02';
+$DATE = '2003/07/11';
 $FILE = __FILE__;
 
 use vars qw(%INVENTORY);
 %INVENTORY = (
-    'lib/Docs/Site_SVD/File_AnySpec.pm' => [qw(0.01 2003/07/04), 'revised 0.03'],
-    'MANIFEST' => [qw(0.01 2003/07/04), 'generated, replaces 0.03'],
-    'Makefile.PL' => [qw(0.01 2003/07/04), 'generated, replaces 0.03'],
-    'README' => [qw(0.01 2003/07/04), 'generated, replaces 0.03'],
-    'lib/File/AnySpec.pm' => [qw(1.1 2003/07/04), 'revised 1.09'],
-    't/File/AnySpec.d' => [qw(0.01 2003/07/04), 'new'],
-    't/File/AnySpec.pm' => [qw(0.01 2003/07/04), 'new'],
-    't/File/AnySpec.t' => [qw(0.07 2003/07/04), 'revised 0.06'],
-    't/File/Drivers/Driver.pm' => [qw(0.02 2003/07/04), 'new'],
-    't/File/Drivers/Generate.pm' => [qw(0.02 2003/07/04), 'new'],
-    't/File/Drivers/IO.pm' => [qw(0.02 2003/07/04), 'new'],
+    'lib/Docs/Site_SVD/File_AnySpec.pm' => [qw(0.02 2003/07/11), 'revised 0.01'],
+    'MANIFEST' => [qw(0.02 2003/07/11), 'generated, replaces 0.01'],
+    'Makefile.PL' => [qw(0.02 2003/07/11), 'generated, replaces 0.01'],
+    'README' => [qw(0.02 2003/07/11), 'generated, replaces 0.01'],
+    'lib/File/AnySpec.pm' => [qw(1.1 2003/07/04), 'unchanged'],
+    't/File/AnySpec.d' => [qw(0.01 2003/07/07), 'unchanged'],
+    't/File/AnySpec.pm' => [qw(0.01 2003/06/07), 'unchanged'],
+    't/File/AnySpec.t' => [qw(0.01 2003/07/07), 'unchanged'],
+    't/File/Drivers/Driver.pm' => [qw(0.02 2003/07/04), 'unchanged'],
+    't/File/Drivers/Generate.pm' => [qw(0.02 2003/07/04), 'unchanged'],
+    't/File/Drivers/IO.pm' => [qw(0.02 2003/07/04), 'unchanged'],
 
 );
 
@@ -53,11 +53,11 @@ use vars qw(%INVENTORY);
 
   File::AnySpec - Manipulate file specifications for foreign operating systems
 
- Revision: -
+ Revision: A
 
- Version: 0.01
+ Version: 0.02
 
- Date: 2003/07/04
+ Date: 2003/07/11
 
  Prepared for: General Public 
 
@@ -92,7 +92,7 @@ operating system but for foreign operating systems.
 
 =head2 1.3 Document overview.
 
-This document releases File::AnySpec version 0.01
+This document releases File::AnySpec version 0.02
 providing a description of the inventory, installation
 instructions and other information necessary to
 utilize and track this release.
@@ -108,8 +108,8 @@ system file specification.
 This document releases the file found
 at the following repository(s):
 
-   http://www.softwarediamonds/packages/File-AnySpec-0.01
-   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/File-AnySpec-0.01
+   http://www.softwarediamonds/packages/File-AnySpec-0.02
+   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/File-AnySpec-0.02
 
 
 Restrictions regarding duplication and license provisions
@@ -177,26 +177,20 @@ consists of the following files:
 
  file                                                         version date       comment
  ------------------------------------------------------------ ------- ---------- ------------------------
- lib/Docs/Site_SVD/File_AnySpec.pm                            0.01    2003/07/04 revised 0.03
- MANIFEST                                                     0.01    2003/07/04 generated, replaces 0.03
- Makefile.PL                                                  0.01    2003/07/04 generated, replaces 0.03
- README                                                       0.01    2003/07/04 generated, replaces 0.03
- lib/File/AnySpec.pm                                          1.1     2003/07/04 revised 1.09
- t/File/AnySpec.d                                             0.01    2003/07/04 new
- t/File/AnySpec.pm                                            0.01    2003/07/04 new
- t/File/AnySpec.t                                             0.07    2003/07/04 revised 0.06
- t/File/Drivers/Driver.pm                                     0.02    2003/07/04 new
- t/File/Drivers/Generate.pm                                   0.02    2003/07/04 new
- t/File/Drivers/IO.pm                                         0.02    2003/07/04 new
+ lib/Docs/Site_SVD/File_AnySpec.pm                            0.02    2003/07/11 revised 0.01
+ MANIFEST                                                     0.02    2003/07/11 generated, replaces 0.01
+ Makefile.PL                                                  0.02    2003/07/11 generated, replaces 0.01
+ README                                                       0.02    2003/07/11 generated, replaces 0.01
+ lib/File/AnySpec.pm                                          1.1     2003/07/04 unchanged
+ t/File/AnySpec.d                                             0.01    2003/07/07 unchanged
+ t/File/AnySpec.pm                                            0.01    2003/06/07 unchanged
+ t/File/AnySpec.t                                             0.01    2003/07/07 unchanged
+ t/File/Drivers/Driver.pm                                     0.02    2003/07/04 unchanged
+ t/File/Drivers/Generate.pm                                   0.02    2003/07/04 unchanged
+ t/File/Drivers/IO.pm                                         0.02    2003/07/04 unchanged
 
 
 =head2 3.3 Changes
-
-The file names from 0.03 were changed as follows:
-
-  
-   return if $file =~ s=FileUtil/FileUtil=AnySpec=;
-  return if $file =~ s=FileUtil=AnySpec=;
 
 Changes are as follows: 
 
@@ -291,7 +285,7 @@ t/Test/TestUtil/TestUtil....NOK 18# Test 18 got: '$VAR1 = '\\=head1 Title Page
   File::AnySpec - Manipulate file specifications for foreign operating systems
 
 
- Revision: -
+ Revision: A
 
 [snip]
 
@@ -456,8 +450,8 @@ Follow the instructions for the the chosen installation software.
 
 The distribution file is at the following respositories:
 
-   http://www.softwarediamonds/packages/File-AnySpec-0.01
-   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/File-AnySpec-0.01
+   http://www.softwarediamonds/packages/File-AnySpec-0.02
+   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/File-AnySpec-0.02
 
 
 =item Prerequistes.
@@ -465,7 +459,7 @@ The distribution file is at the following respositories:
  'File::SmartNL' => '0',
  'File::Package' => '0',
  'File::TestPath' => '0',
- 'Test::STD::Scrub' => '0',
+ 'Text::Scrub' => '0',
  'Test::Tech' => '1.08',
  'File::PM2File' => '0',
 
@@ -577,11 +571,11 @@ __DATA__
 DISTNAME: File-AnySpec^
 REPOSITORY_DIR: packages^
 
-VERSION : 0.01^
+VERSION : 0.02^
 FREEZE: 1^
-PREVIOUS_DISTNAME: File-FileUtil^
-PREVIOUS_RELEASE: 0.03^
-REVISION: -^
+PREVIOUS_DISTNAME:  ^
+PREVIOUS_RELEASE: 0.01^
+REVISION: A^
 
 AUTHOR  : SoftwareDiamonds.com E<lt>support@SoftwareDiamonds.comE<gt>^
 
@@ -607,10 +601,7 @@ COMPRESS: gzip^
 COMPRESS_SUFFIX: gz^
 
 RESTRUCTURE:  ^
-CHANGE2CURRENT:  
-  return if $file =~ s=FileUtil/FileUtil=AnySpec=;
-  return if $file =~ s=FileUtil=AnySpec=;
-^
+CHANGE2CURRENT:  ^
 
 AUTO_REVISE: 
 lib/File/AnySpec.pm
@@ -622,7 +613,7 @@ PREREQ_PM:
 'File::SmartNL' => '0',
 'File::Package' => '0',
 'File::TestPath' => '0',
-'Test::STD::Scrub' => '0',
+'Text::Scrub' => '0',
 'Test::Tech' => '1.08',
 'File::PM2File' => '0',
 ^
