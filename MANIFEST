@@ -1,0 +1,11 @@
+lib/Docs/Site_SVD/File_AnySpec.pm
+MANIFEST
+Makefile.PL
+README
+lib/File/AnySpec.pm
+t/File/AnySpec.d
+t/File/AnySpec.pm
+t/File/AnySpec.t
+t/File/Drivers/Driver.pm
+t/File/Drivers/Generate.pm
+t/File/Drivers/IO.pm
