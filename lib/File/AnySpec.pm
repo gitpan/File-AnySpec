@@ -11,19 +11,31 @@ use warnings;
 use warnings::register;
 
 use vars qw($VERSION $DATE);
-$VERSION = '1.11';
-$DATE = '2003/07/26';
+$VERSION = '1.12';
+$DATE = '2003/09/12';
+
+use vars qw(@ISA @EXPORT_OK);
+require Exporter;
+@ISA= qw(Exporter);
+@EXPORT_OK = qw(fspec2fspec pm2fspec os2fspec fspec2os fspec_glob fspec2pm);
 
 use SelfLoader;
 use File::Spec;
-use File::PM2File;
-use File::Package;
+
 
 ######
 #
 # Having trouble with requires in Self Loader
 #
+# This could be because the below use Self Loader and
+# Self Loader does not like to be nested,
+#
+# Anyway, since they use Self Loader, there is very
+# little advantage in placing a require in subroutines.
+#
 #####
+use File::PM2File;
+use File::Package;
 
 ######
 # Many of the methods in this package are use the File::Spec
@@ -47,24 +59,32 @@ my %module = (
 
 sub fspec2module
 {
-    my (undef,$fspec) = @_;
+    ######
+    # This subroutine uses no object data. Drop class or object.
+    #
+    shift @_ if UNIVERSAL::isa($_[0],__PACKAGE__);
+
+    my ($fspec) = @_;
     $module{$fspec} || 'Unix';
 }
 
 
 #####
-# Convert between file specifications for different operating systems to a Unix file specification
+# Convert between file specifications for different operating systems.
 #
 sub fspec2fspec
 {
-    my (undef, $from_fspec, $to_fspec, $fspec_file, $nofile) = @_;
-
+    ######
+    # This subroutine uses no object data. Drop class or object.
+    #
+    shift @_ if UNIVERSAL::isa($_[0],__PACKAGE__);
+    my ($from_fspec, $to_fspec, $fspec_file, $nofile) = @_;
     return $fspec_file if $from_fspec eq $to_fspec;
 
     #######
     # Extract the raw @dirs, file
     #
-    my $from_module = File::AnySpec->fspec2module( $from_fspec );
+    my $from_module = fspec2module( $from_fspec );
     my $from_package = "File::Spec::$from_module";
     my $error = File::Package->load_package($from_package);
     if( $error ) {
@@ -79,7 +99,7 @@ sub fspec2fspec
     #######
     # Contruct the new file specification
     #
-    my $to_module = File::AnySpec->fspec2module( $to_fspec );
+    my $to_module = fspec2module( $to_fspec );
     my $to_package = "File::Spec::$to_module";
     $error = File::Package->load_package( $to_package);
     if( $error ) {
@@ -105,12 +125,16 @@ __DATA__
 #
 sub pm2fspec
 {
-   my (undef, $fspec, $pm) = @_;
-   my ($file,$path, $require) = File::PM2File->pm2file($pm);
-   $file = File::AnySpec->os2fspec( $fspec, $file);
-   $require = File::AnySpec->os2fspec( $fspec, $require);
-   $path = File::AnySpec->os2fspec( $fspec, $path, 'nofile');
-   ($file, $path, $require)
+    ######
+    # This subroutine uses no object data. When present, drop class or object.
+    #
+    shift @_ if UNIVERSAL::isa($_[0],__PACKAGE__);
+    my ($fspec, $pm) = @_;
+    my ($file,$path, $require) = File::PM2File->pm2file($pm);
+    $file = os2fspec( $fspec, $file);
+    $require = os2fspec( $fspec, $require);
+    $path = os2fspec( $fspec, $path, 'nofile');
+    ($file, $path, $require)
 }
 
 
@@ -119,8 +143,12 @@ sub pm2fspec
 #
 sub os2fspec
 {
-    my (undef, $fspec, $os_file, $nofile) = @_;
-    File::AnySpec->fspec2fspec($^O, $fspec, $os_file, $nofile);
+    ######
+    # This subroutine uses no object data. When present, drop class or object.
+    #
+    shift @_ if UNIVERSAL::isa($_[0],__PACKAGE__);
+    my ($fspec, $os_file, $nofile) = @_;
+    fspec2fspec($^O, $fspec, $os_file, $nofile);
 }
 
 #####
@@ -128,8 +156,12 @@ sub os2fspec
 #
 sub fspec2os
 {
-    my (undef, $fspec, $fspec_file, $nofile) = @_;
-    File::AnySpec->fspec2fspec($fspec, $^O, $fspec_file, $nofile);
+    ######
+    # This subroutine uses no object data. When present, drop class or object.
+    #
+    shift @_ if UNIVERSAL::isa($_[0],__PACKAGE__);
+    my ($fspec, $fspec_file, $nofile) = @_;
+    fspec2fspec($fspec, $^O, $fspec_file, $nofile);
 }
 
 #######
@@ -138,16 +170,20 @@ sub fspec2os
 #
 sub fspec_glob
 {
-   my (undef, $fspec, @files) = @_;
+    ######
+    # This subroutine uses no object data. When present, drop class or object.
+    #
+    shift @_ if UNIVERSAL::isa($_[0],__PACKAGE__);
+    my ($fspec, @files) = @_;
 
-   use File::Glob ':glob';
+    use File::Glob ':glob';
 
-   my @glob_files = ();
-   foreach my $file (@files) {
-       $file = File::AnySpec->fspec2os($fspec, $file);
-       push @glob_files, bsd_glob( $file );
-   }
-   @glob_files;
+    my @glob_files = ();
+    foreach my $file (@files) {
+        $file = fspec2os($fspec, $file);
+        push @glob_files, bsd_glob( $file );
+    }
+    @glob_files;
 }
 
 
@@ -155,14 +191,18 @@ sub fspec_glob
 
 sub fspec2pm
 {
-    my (undef, $fspec, $fspec_file) = @_;
+    ######
+    # This subroutine uses no object data. When present, drop class or object.
+    #
+    shift @_ if UNIVERSAL::isa($_[0],__PACKAGE__);
+    my ($fspec, $fspec_file) = @_;
 
     ##########
     # Must be a pm to convert to :: specification
     #
     return $fspec_file unless ($fspec_file =~ /\.pm$/);
 
-    my $module = File::AnySpec->fspec2module( $fspec );
+    my $module = fspec2module( $fspec );
     my $fspec_package = "File::Spec::$module";
     File::Package->load_package( $fspec_package);
     
@@ -191,16 +231,35 @@ File::AnySpec - perform operations on foreign (remote) file names
 
 =head1 SYNOPSIS
 
+ ###### 
+ # Subroutine Interface
+ #
+ use File::AnySpec qw(fspec2fspec pm2fspec os2fspec fspec2os fspec_glob fspec2pm);
+
+ $file                                 = fspec2fspec($from_fspec, $to_fspec $fspec_file, [$nofile])
+ $os_file                              = fspec2os($fspec, $file, [$no_file])
+ $fspec_file                           = os2fspec($fspec, $file, [$no_file])
+
+ $pm                                   = fspec2pm($fspec, $require_file)
+ ($abs_file, $inc_path, $require_file) = pm2fspec($fspec, $pm)
+
+ @globed_files                         = fspec_glob($fspec, @files)
+
+ ###### 
+ # Class Interface
+ #
  use File::AnySpec
+ use vars qw(@ISA)
+ @ISA = qw(File::AnySpec)
 
- $file                                 = File::FileUtil->fspec2fspec($from_fspec, $to_fspec $fspec_file, [$nofile])
- $os_file                              = File::FileUtil->fspec2os($fspec, $file, [$no_file])
- $fspec_file                           = File::FileUtil->os2fspec($fspec, $file, [$no_file])
+ $file                                 = __PACKAGE__->fspec2fspec($from_fspec, $to_fspec $fspec_file, [$nofile])
+ $os_file                              = __PACKAGE__->fspec2os($fspec, $file, [$no_file])
+ $fspec_file                           = __PACKAGE__->os2fspec($fspec, $file, [$no_file])
 
- $pm                                   = File::FileUtil->fspec2pm($fspec, $require_file)
- ($abs_file, $inc_path, $require_file) = File::FileUtil->pm2fspec($fspec, $pm)
+ $pm                                   = __PACKAGE__->fspec2pm($fspec, $require_file)
+ ($abs_file, $inc_path, $require_file) = __PACKAGE__->pm2fspec($fspec, $pm)
 
- @globed_files                         = File::FileUtil->fspec_glob($fspec, @files)
+ @globed_files                         = __PACKAGE__->fspec_glob($fspec, @files)
 
 
 =head1 DESCRIPTION
@@ -332,25 +391,170 @@ follow on the next lines. For example,
  '/Perl/lib'
  'File/Basename.pm'
 
-
 =head1 QUALITY ASSURANCE
 
-The module "t::File::AnySpec" is the Software
-Test Description(STD) module for the "File::AnySpec".
-module. 
+Running the test script 'Gzip.t' found in
+the "File-AnySpec-$VERSION.tar.gz" distribution file verifies
+the requirements for this module.
 
-To generate all the test output files, 
-run the generated test script,
-run the demonstration script and include it results in the "File::AnySpec" POD,
+All testing software and documentation
+stems from the 
+Software Test Description (L<STD|Docs::US_DOD::STD>)
+program module 't::File::AnySpec',
+found in the distribution file 
+"File-AnySpec-$VERSION.tar.gz". 
+
+The 't::File::AnySpec' L<STD|Docs::US_DOD::STD> POD contains
+a tracebility matix between the
+requirements established above for this module, and
+the test steps identified by a
+'ok' number from running the 'Gzip.t'
+test script.
+
+The t::File::AnySpec' L<STD|Docs::US_DOD::STD>
+program module '__DATA__' section contains the data 
+to perform the following:
+
+=over 4
+
+=item *
+
+to generate the test script 'Gzip.t'
+
+=item *
+
+generate the tailored 
+L<STD|Docs::US_DOD::STD> POD in
+the 't::File::AnySpec' module, 
+
+=item *
+
+generate the 'Gzip.d' demo script, 
+
+=item *
+
+replace the POD demonstration section
+herein with the demo script
+'Gzip.d' output, and
+
+=item *
+
+run the test script using Test::Harness
+with or without the verbose option,
+
+=back
+
+To perform all the above, prepare
+and run the automation software as 
+follows:
+
+=over 4
+
+=item *
+
+Install "Test_STDmaker-$VERSION.tar.gz"
+from one of the respositories only
+if it has not been installed:
+
+=over 4
+
+=item *
+
+http://www.softwarediamonds/packages/
+
+=item *
+
+http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/
+
+=back
+  
+=item *
+
+manually place the script tmake.pl
+in "Test_STDmaker-$VERSION.tar.gz' in
+the site operating system executable 
+path only if it is not in the 
+executable path
+
+=item *
+
+place the 't::File::AnySpec' at the same
+level in the directory struture as the
+directory holding the 'Tie::Gzip'
+module
+
+=item *
+
 execute the following in any directory:
 
- tmake -test_verbose -replace -run  -pm=t::File::AnySpec
+ tmake -test_verbose -replace -run -pm=t::File::AnySpec
 
-Note that F<tmake.pl> must be in the execution path C<$ENV{PATH}>
-and the "t" directory containing  "t::File::AnySpec" on the same level as the "lib" 
-directory that contains the "File::AnySpec" module.
+=back
 
 =head1 NOTES
+
+=head2 FILES
+
+The installation of the
+"File-AnySpec-$VERSION.tar.gz" distribution file
+installs the 'Docs::Site_SVD::File_AnySpec'
+L<SVD|Docs::US_DOD::SVD> program module.
+
+The __DATA__ data section of the 
+'Docs::Site_SVD::File_AnySpec' contains all
+the necessary data to generate the POD
+section of 'Docs::Site_SVD::File_AnySpec' and
+the "File-AnySpec-$VERSION.tar.gz" distribution file.
+
+To make use of the 
+'Docs::Site_SVD::File_AnySpec'
+L<SVD|Docs::US_DOD::SVD> program module,
+perform the following:
+
+=over 4
+
+=item *
+
+install "ExtUtils-SVDmaker-$VERSION.tar.gz"
+from one of the respositories only
+if it has not been installed:
+
+=over 4
+
+=item *
+
+http://www.softwarediamonds/packages/
+
+=item *
+
+http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/
+
+=back
+
+=item *
+
+manually place the script vmake.pl
+in "ExtUtils-SVDmaker-$VERSION.tar.gz' in
+the site operating system executable 
+path only if it is not in the 
+executable path
+
+=item *
+
+Make any appropriate changes to the
+__DATA__ section of the 'Docs::Site_SVD::File_AnySpec'
+module.
+For example, any changes to
+'Tie::Gzip' will impact the
+at least 'Changes' field.
+
+=item *
+
+Execute the following:
+
+ vmake readme_html all -pm=Docs::Site_SVD::File_AnySpec
+
+=back
 
 =head2 AUTHOR
 

@@ -10,26 +10,26 @@ use warnings;
 use warnings::register;
 
 use vars qw($VERSION $DATE $FILE );
-$VERSION = '0.04';
-$DATE = '2003/07/26';
+$VERSION = '0.05';
+$DATE = '2003/09/12';
 $FILE = __FILE__;
 
 use vars qw(%INVENTORY);
 %INVENTORY = (
-    'lib/Docs/Site_SVD/File_AnySpec.pm' => [qw(0.04 2003/07/26), 'revised 0.03'],
-    'MANIFEST' => [qw(0.04 2003/07/26), 'generated, replaces 0.03'],
-    'Makefile.PL' => [qw(0.04 2003/07/26), 'generated, replaces 0.03'],
-    'README' => [qw(0.04 2003/07/26), 'generated, replaces 0.03'],
-    'lib/File/AnySpec.pm' => [qw(1.11 2003/07/26), 'revised 1.1'],
-    't/File/AnySpec.d' => [qw(0.02 2003/07/26), 'revised 0.01'],
+    'lib/Docs/Site_SVD/File_AnySpec.pm' => [qw(0.05 2003/09/12), 'revised 0.04'],
+    'MANIFEST' => [qw(0.05 2003/09/12), 'generated, replaces 0.04'],
+    'Makefile.PL' => [qw(0.05 2003/09/12), 'generated, replaces 0.04'],
+    'README' => [qw(0.05 2003/09/12), 'generated, replaces 0.04'],
+    'lib/File/AnySpec.pm' => [qw(1.12 2003/09/12), 'revised 1.11'],
+    't/File/AnySpec.d' => [qw(0.01 2003/07/26), 'unchanged'],
     't/File/AnySpec.pm' => [qw(0.01 2003/06/07), 'unchanged'],
-    't/File/AnySpec.t' => [qw(0.08 2003/07/26), 'revised 0.07'],
+    't/File/AnySpec.t' => [qw(0.09 2003/09/12), 'revised 0.08'],
     't/File/Drivers/Driver.pm' => [qw(0.02 2003/07/04), 'unchanged'],
     't/File/Drivers/Generate.pm' => [qw(0.02 2003/07/04), 'unchanged'],
     't/File/Drivers/IO.pm' => [qw(0.02 2003/07/04), 'unchanged'],
-    'tlib/File/SmartNL.pm' => [qw(1.1 2003/07/26), 'new'],
-    'tlib/Text/Scrub.pm' => [qw(1.09 2003/07/26), 'new'],
-    'tlib/Test/Tech.pm' => [qw(1.1 2003/07/26), 'new'],
+    'tlib/File/SmartNL.pm' => [qw(1.12 2003/09/12), 'unchanged'],
+    'tlib/Text/Scrub.pm' => [qw(1.09 2003/09/12), 'unchanged'],
+    'tlib/Test/Tech.pm' => [qw(1.13 2003/09/12), 'revised 1.1'],
 
 );
 
@@ -56,11 +56,11 @@ use vars qw(%INVENTORY);
 
   File::AnySpec - Manipulate file specifications for foreign operating systems
 
- Revision: C
+ Revision: D
 
- Version: 0.04
+ Version: 0.05
 
- Date: 2003/07/26
+ Date: 2003/09/12
 
  Prepared for: General Public 
 
@@ -95,7 +95,7 @@ operating system but for foreign operating systems.
 
 =head2 1.3 Document overview.
 
-This document releases File::AnySpec version 0.04
+This document releases File::AnySpec version 0.05
 providing a description of the inventory, installation
 instructions and other information necessary to
 utilize and track this release.
@@ -111,8 +111,8 @@ system file specification.
 This document releases the file found
 at the following repository(s):
 
-   http://www.softwarediamonds/packages/File-AnySpec-0.04
-   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/File-AnySpec-0.04
+   http://www.softwarediamonds/packages/File-AnySpec-0.05
+   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/File-AnySpec-0.05
 
 
 Restrictions regarding duplication and license provisions
@@ -180,20 +180,20 @@ consists of the following files:
 
  file                                                         version date       comment
  ------------------------------------------------------------ ------- ---------- ------------------------
- lib/Docs/Site_SVD/File_AnySpec.pm                            0.04    2003/07/26 revised 0.03
- MANIFEST                                                     0.04    2003/07/26 generated, replaces 0.03
- Makefile.PL                                                  0.04    2003/07/26 generated, replaces 0.03
- README                                                       0.04    2003/07/26 generated, replaces 0.03
- lib/File/AnySpec.pm                                          1.11    2003/07/26 revised 1.1
- t/File/AnySpec.d                                             0.02    2003/07/26 revised 0.01
+ lib/Docs/Site_SVD/File_AnySpec.pm                            0.05    2003/09/12 revised 0.04
+ MANIFEST                                                     0.05    2003/09/12 generated, replaces 0.04
+ Makefile.PL                                                  0.05    2003/09/12 generated, replaces 0.04
+ README                                                       0.05    2003/09/12 generated, replaces 0.04
+ lib/File/AnySpec.pm                                          1.12    2003/09/12 revised 1.11
+ t/File/AnySpec.d                                             0.01    2003/07/26 unchanged
  t/File/AnySpec.pm                                            0.01    2003/06/07 unchanged
- t/File/AnySpec.t                                             0.08    2003/07/26 revised 0.07
+ t/File/AnySpec.t                                             0.09    2003/09/12 revised 0.08
  t/File/Drivers/Driver.pm                                     0.02    2003/07/04 unchanged
  t/File/Drivers/Generate.pm                                   0.02    2003/07/04 unchanged
  t/File/Drivers/IO.pm                                         0.02    2003/07/04 unchanged
- tlib/File/SmartNL.pm                                         1.1     2003/07/26 new
- tlib/Text/Scrub.pm                                           1.09    2003/07/26 new
- tlib/Test/Tech.pm                                            1.1     2003/07/26 new
+ tlib/File/SmartNL.pm                                         1.12    2003/09/12 unchanged
+ tlib/Text/Scrub.pm                                           1.09    2003/09/12 unchanged
+ tlib/Test/Tech.pm                                            1.13    2003/09/12 revised 1.1
 
 
 =head2 3.3 Changes
@@ -263,7 +263,7 @@ POD discription for I<format_hash_table>
 
 =item Test-TestUtil-0.04
 
-item our old friend visits again - DOS and UNIX text file incompatibility
+Our old friend visits again - DOS and UNIX text file incompatibility
 
 This impacts other modules. We have to examine all modules for
 this portability defect and correct any found defects.
@@ -291,7 +291,7 @@ t/Test/TestUtil/TestUtil....NOK 18# Test 18 got: '$VAR1 = '\\=head1 Title Page
   File::AnySpec - Manipulate file specifications for foreign operating systems
 
 
- Revision: C
+ Revision: D
 
 [snip]
 
@@ -457,6 +457,14 @@ The test of this module will precede immediately.
 The test support files in the tlib directory will vanish after
 the installtion.
 
+=item File-AnySpec-0.05
+
+Added subroutine interfaces.
+
+Use Archive::TarGzip that uses modd 777 for directories instead of 666. Started to get
+emails from Unix about untar not being able to change to
+a directory with mod of 666.
+
 =back
 
 =head2 3.4 Adaptation data.
@@ -490,8 +498,8 @@ Follow the instructions for the the chosen installation software.
 
 The distribution file is at the following respositories:
 
-   http://www.softwarediamonds/packages/File-AnySpec-0.04
-   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/File-AnySpec-0.04
+   http://www.softwarediamonds/packages/File-AnySpec-0.05
+   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/File-AnySpec-0.05
 
 
 =item Prerequistes.
@@ -579,7 +587,13 @@ Plain Old Documentation
 
 =head1 2.0 SEE ALSO
 
-L<File::AnySpec|File::AnySpec>
+=over 4
+
+=item L<File::AnySpec|File::AnySpec> 
+
+=item L<Docs::US_DOD::SVD|Docs::US_DOD::SVD> 
+
+=back
 
 =for html
 <hr>
@@ -606,11 +620,11 @@ __DATA__
 DISTNAME: File-AnySpec^
 REPOSITORY_DIR: packages^
 
-VERSION : 0.04^
+VERSION : 0.05^
 FREEZE: 1^
 PREVIOUS_DISTNAME:  ^
-PREVIOUS_RELEASE: 0.03^
-REVISION: C^
+PREVIOUS_RELEASE: 0.04^
+REVISION: D^
 
 AUTHOR  : SoftwareDiamonds.com E<lt>support@SoftwareDiamonds.comE<gt>^
 
@@ -721,7 +735,7 @@ POD discription for I<format_hash_table>
 
 \=item Test-TestUtil-0.04
 
-item our old friend visits again - DOS and UNIX text file incompatibility
+Our old friend visits again - DOS and UNIX text file incompatibility
 
 This impacts other modules. We have to examine all modules for
 this portability defect and correct any found defects.
@@ -915,6 +929,14 @@ The test of this module will precede immediately.
 The test support files in the tlib directory will vanish after
 the installtion.
 
+\=item File-AnySpec-0.05
+
+Added subroutine interfaces.
+
+Use Archive::TarGzip that uses modd 777 for directories instead of 666. Started to get
+emails from Unix about untar not being able to change to
+a directory with mod of 666.
+
 \=back
 
 ^
@@ -1054,9 +1076,16 @@ Plain Old Documentation
 \=back
 ^
 
-SEE_ALSO:  
-L<File::AnySpec|File::AnySpec>
+SEE_ALSO: 
+\=over 4
+
+\=item L<File::AnySpec|File::AnySpec> 
+
+\=item L<Docs::US_DOD::SVD|Docs::US_DOD::SVD> 
+
+\=back
 ^
+
 
 HTML:
 <hr>

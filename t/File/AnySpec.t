@@ -7,8 +7,8 @@ use warnings;
 use warnings::register;
 
 use vars qw($VERSION $DATE $FILE);
-$VERSION = '0.08';   # automatically generated file
-$DATE = '2003/07/26';
+$VERSION = '0.09';   # automatically generated file
+$DATE = '2003/09/12';
 $FILE = __FILE__;
 
 use Getopt::Long;
@@ -95,6 +95,14 @@ BEGIN {
    unshift @INC, $lib_dir;
    chdir $dirs if $dirs;
  
+   #####
+   # Add lib under the directory where the test script resides.
+   # This may be used to place version sensitive modules.
+   #
+   $lib_dir = File::Spec->catdir( cwd(), 'lib' );
+   $lib_dir =~ s|/|\\|g if $^O eq 'MSWin32';  # microsoft abberation
+   unshift @INC, $lib_dir;
+
    ##########
    # Pick up a output redirection file and tests to skip
    # from the command line.

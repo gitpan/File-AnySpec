@@ -9,12 +9,12 @@ use strict;
 use warnings;
 use warnings::register;
 
-use Test ();   # do not import and "Test" subroutines
+use Test ();   # do not import the "Test" subroutines
 use Data::Dumper;
 
 use vars qw($VERSION $DATE $FILE);
-$VERSION = '1.1';
-$DATE = '2003/07/26';
+$VERSION = '1.13';
+$DATE = '2003/09/12';
 $FILE = __FILE__;
 
 use vars qw(@ISA @EXPORT_OK);
@@ -31,12 +31,11 @@ require Exporter;
 # Senseless to objectify "Test::Tech" if unless "Test" and "Data::Dumper"
 # are objectified
 #
-
 my %tech = ();
 my $tech_p = \%tech;  # quasi objectify by using $tech_p instead of %tech
 
 ########
-# Tend to Data::Dumper variables
+# Make  Data::Dumper variables visible to tech_config
 #
 $tech_p->{Dumper} = {};
 $tech_p->{Dumper}->{Terse} = \$Data::Dumper::Terse;
@@ -52,7 +51,7 @@ $tech_p->{Dumper}->{Quotekeys} = \$Data::Quotekeys;
 $tech_p->{Dumper}->{Maxdepth} = \$Data::Maxdepth;
 
 ######
-# Tend to Test variables
+# Make Test variables visible to tech_config
 #  
 $tech_p->{Test}->{ntest} = \$Test::ntest;
 $tech_p->{Test}->{TESTOUT} = \$Test::TESTOUT;
@@ -69,10 +68,10 @@ $tech_p->{Skip_Tests} = 0;
 #######
 # Probe for internal storage
 #
-# The &Data::Dumper::Dumper subroutine stringifies the iternal Perl variable. 
+# The &Data::Dumper::Dumper subroutine stringifies the internal Perl variable. 
 # Different Perls keep the have different internal formats for numbers. Some
 # keep them as binary numbers, while others as strings. The ones that keep
-# them as strings may be well spec. In any case they have been let loose in
+# them as strings may be out of spec. In any case they have been let loose in
 # the wild so the test scripts that use Data::Dumper must deal with them.
 #
 # This is perl, v5.6.1 built for MSWin32-x86-multi-thread 
@@ -112,6 +111,8 @@ $tech_p->{Skip_Tests} = 0;
 #
 # Perls in the wild with internal storage of string may be mutants that need to
 # be hunted down killed.
+#
+# The ActiveState v5.8 no longer produce a internal storage of string for 0+$number
 #
 my $probe = 3;
 my $actual = Dumper([0+$probe]);
@@ -212,13 +213,18 @@ EOF
 
 
 ######
-#
 # Cover function for &Test::ok that adds capability to test 
 # complex data structures.
 #
 sub ok
 {
    my ($actual_result, $expected_result, $diagnostic, $name) = @_;
+
+   ######### 
+   # Fill in undefined inputs
+   #
+   $name = '' unless defined $name; 
+   $diagnostic = $name unless $diagnostic;
 
    print $Test::TESTOUT "# $name\n" if $name;
    if($tech_p->{Skip_Tests}) { # skip rest of tests switch
@@ -228,6 +234,7 @@ sub ok
    }
 
    &Test::ok(stringify($actual_result), stringify($expected_result), $diagnostic);
+
 }
 
 
@@ -258,7 +265,12 @@ sub skip_tests
 {
    my ($value) =  @_;
    my $result = $tech_p->{Skip_Tests};
-   $tech_p->{Skip_Tests} = $value if defined $value;
+   if (defined $value) {
+       $tech_p->{Skip_Tests} = $value;
+   }
+   else {
+       $tech_p->{Skip_Tests} = 1;
+   }
    $result;   
 }
 
@@ -674,10 +686,6 @@ OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF NEGLIGENCE OR OTHERWISE) ARISING IN
 ANY WAY OUT OF THE POSSIBILITY OF SUCH DAMAGE. 
-
-=head1 SEE ALSO
-
-L<Test> L<Test::TestUtil>
 
 =for html
 <p><br>
