@@ -23,7 +23,7 @@ my $tests = join ' ',unix2os('t/File/AnySpec.t');
 WriteMakefile(
     NAME => 'File::AnySpec',
     DISTNAME => 'File-AnySpec',
-    VERSION  => '0.02',
+    VERSION  => '0.03',
     dist     => {COMPRESS => 'gzip',
                 'gz' => 'gz'},
     test     => {TESTS => $tests},

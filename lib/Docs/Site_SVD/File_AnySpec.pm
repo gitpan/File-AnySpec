@@ -10,17 +10,17 @@ use warnings;
 use warnings::register;
 
 use vars qw($VERSION $DATE $FILE );
-$VERSION = '0.02';
-$DATE = '2003/07/11';
+$VERSION = '0.03';
+$DATE = '2003/07/15';
 $FILE = __FILE__;
 
 use vars qw(%INVENTORY);
 %INVENTORY = (
-    'lib/Docs/Site_SVD/File_AnySpec.pm' => [qw(0.02 2003/07/11), 'revised 0.01'],
-    'MANIFEST' => [qw(0.02 2003/07/11), 'generated, replaces 0.01'],
-    'Makefile.PL' => [qw(0.02 2003/07/11), 'generated, replaces 0.01'],
-    'README' => [qw(0.02 2003/07/11), 'generated, replaces 0.01'],
-    'lib/File/AnySpec.pm' => [qw(1.1 2003/07/04), 'unchanged'],
+    'lib/Docs/Site_SVD/File_AnySpec.pm' => [qw(0.03 2003/07/15), 'revised 0.02'],
+    'MANIFEST' => [qw(0.03 2003/07/15), 'generated, replaces 0.02'],
+    'Makefile.PL' => [qw(0.03 2003/07/15), 'generated, replaces 0.02'],
+    'README' => [qw(0.03 2003/07/15), 'generated, replaces 0.02'],
+    'lib/File/AnySpec.pm' => [qw(1.11 2003/07/15), 'revised 1.1'],
     't/File/AnySpec.d' => [qw(0.01 2003/07/07), 'unchanged'],
     't/File/AnySpec.pm' => [qw(0.01 2003/06/07), 'unchanged'],
     't/File/AnySpec.t' => [qw(0.01 2003/07/07), 'unchanged'],
@@ -53,11 +53,11 @@ use vars qw(%INVENTORY);
 
   File::AnySpec - Manipulate file specifications for foreign operating systems
 
- Revision: A
+ Revision: B
 
- Version: 0.02
+ Version: 0.03
 
- Date: 2003/07/11
+ Date: 2003/07/15
 
  Prepared for: General Public 
 
@@ -92,7 +92,7 @@ operating system but for foreign operating systems.
 
 =head2 1.3 Document overview.
 
-This document releases File::AnySpec version 0.02
+This document releases File::AnySpec version 0.03
 providing a description of the inventory, installation
 instructions and other information necessary to
 utilize and track this release.
@@ -108,8 +108,8 @@ system file specification.
 This document releases the file found
 at the following repository(s):
 
-   http://www.softwarediamonds/packages/File-AnySpec-0.02
-   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/File-AnySpec-0.02
+   http://www.softwarediamonds/packages/File-AnySpec-0.03
+   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/File-AnySpec-0.03
 
 
 Restrictions regarding duplication and license provisions
@@ -177,11 +177,11 @@ consists of the following files:
 
  file                                                         version date       comment
  ------------------------------------------------------------ ------- ---------- ------------------------
- lib/Docs/Site_SVD/File_AnySpec.pm                            0.02    2003/07/11 revised 0.01
- MANIFEST                                                     0.02    2003/07/11 generated, replaces 0.01
- Makefile.PL                                                  0.02    2003/07/11 generated, replaces 0.01
- README                                                       0.02    2003/07/11 generated, replaces 0.01
- lib/File/AnySpec.pm                                          1.1     2003/07/04 unchanged
+ lib/Docs/Site_SVD/File_AnySpec.pm                            0.03    2003/07/15 revised 0.02
+ MANIFEST                                                     0.03    2003/07/15 generated, replaces 0.02
+ Makefile.PL                                                  0.03    2003/07/15 generated, replaces 0.02
+ README                                                       0.03    2003/07/15 generated, replaces 0.02
+ lib/File/AnySpec.pm                                          1.11    2003/07/15 revised 1.1
  t/File/AnySpec.d                                             0.01    2003/07/07 unchanged
  t/File/AnySpec.pm                                            0.01    2003/06/07 unchanged
  t/File/AnySpec.t                                             0.01    2003/07/07 unchanged
@@ -285,7 +285,7 @@ t/Test/TestUtil/TestUtil....NOK 18# Test 18 got: '$VAR1 = '\\=head1 Title Page
   File::AnySpec - Manipulate file specifications for foreign operating systems
 
 
- Revision: A
+ Revision: B
 
 [snip]
 
@@ -408,6 +408,36 @@ absolute file from the
 The module name is now more descriptive
 of the routines in the module.
 
+=item File::AnySpec 0.02
+
+At 08:40 AM 7/14/2003 +0000, Josts Smokehouse wrote:
+
+[snip]
+	
+PERL_DL_NONLAZY=1 /usr/local/perl/bin/perl "-MExtUtils::Command::MM" "-e" "test_harness(0, 'blib/lib', 'blib/arch')" t/File/AnySpec.t
+t/File/AnySpec....# Test 2 got: 'Cannot load File::AnySpec
+	File/AnySpec.pm did not return a true value at (eval 7) line 1.
+	' (t/File/AnySpec.t at line 121)
+#   Expected: ''
+FAILED test 2
+	Failed 1/8 tests, 87.50% okay (less 6 skipped tests: 1 okay, 12.50%)
+Failed Test      Stat Wstat Total Fail  Failed  List of Failed
+-------------------------------------------------------------------------------
+t/File/AnySpec.t                8    1  12.50%  2
+6 subtests skipped.
+Failed 1/1 test scripts, 0.00% okay. 1/8 subtests failed, 87.50% okay.
+make: *** [test_dynamic] Error 29
+
+
+Corrective Action: 
+This module uses the "SelfLoader" module that loads functions from the __DATA__ section.
+There is a one at the end of the __DATA__ section but not one at the end of the code.
+Added a 1 at the end of the code section in hopes this will cure this error.
+
+Very pleased the way the File::Package funcstions and the "Test" dual input ok function
+remotely reported the error messages from loading the "File::AnySpec" module with a
+require.
+
 =back
 
 =head2 3.4 Adaptation data.
@@ -450,8 +480,8 @@ Follow the instructions for the the chosen installation software.
 
 The distribution file is at the following respositories:
 
-   http://www.softwarediamonds/packages/File-AnySpec-0.02
-   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/File-AnySpec-0.02
+   http://www.softwarediamonds/packages/File-AnySpec-0.03
+   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/File-AnySpec-0.03
 
 
 =item Prerequistes.
@@ -571,11 +601,11 @@ __DATA__
 DISTNAME: File-AnySpec^
 REPOSITORY_DIR: packages^
 
-VERSION : 0.02^
+VERSION : 0.03^
 FREEZE: 1^
 PREVIOUS_DISTNAME:  ^
-PREVIOUS_RELEASE: 0.01^
-REVISION: A^
+PREVIOUS_RELEASE: 0.02^
+REVISION: B^
 
 AUTHOR  : SoftwareDiamonds.com E<lt>support@SoftwareDiamonds.comE<gt>^
 
@@ -837,6 +867,36 @@ absolute file from the
 "File::AnySpec" module.
 The module name is now more descriptive
 of the routines in the module.
+
+\=item File::AnySpec 0.02
+
+At 08:40 AM 7/14/2003 +0000, Josts Smokehouse wrote:
+
+[snip]
+	
+PERL_DL_NONLAZY=1 /usr/local/perl/bin/perl "-MExtUtils::Command::MM" "-e" "test_harness(0, 'blib/lib', 'blib/arch')" t/File/AnySpec.t
+t/File/AnySpec....# Test 2 got: 'Cannot load File::AnySpec
+	File/AnySpec.pm did not return a true value at (eval 7) line 1.
+	' (t/File/AnySpec.t at line 121)
+#   Expected: ''
+FAILED test 2
+	Failed 1/8 tests, 87.50% okay (less 6 skipped tests: 1 okay, 12.50%)
+Failed Test      Stat Wstat Total Fail  Failed  List of Failed
+-------------------------------------------------------------------------------
+t/File/AnySpec.t                8    1  12.50%  2
+6 subtests skipped.
+Failed 1/1 test scripts, 0.00% okay. 1/8 subtests failed, 87.50% okay.
+make: *** [test_dynamic] Error 29
+
+
+Corrective Action: 
+This module uses the "SelfLoader" module that loads functions from the __DATA__ section.
+There is a one at the end of the __DATA__ section but not one at the end of the code.
+Added a 1 at the end of the code section in hopes this will cure this error.
+
+Very pleased the way the File::Package funcstions and the "Test" dual input ok function
+remotely reported the error messages from loading the "File::AnySpec" module with a
+require.
 
 \=back
 
