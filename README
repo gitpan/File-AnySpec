@@ -5,11 +5,11 @@ Title Page
 
       File::AnySpec - Manipulate file specifications for foreign operating systems
 
-     Revision: B
+     Revision: C
 
-     Version: 0.03
+     Version: 0.04
 
-     Date: 2003/07/15
+     Date: 2003/07/26
 
      Prepared for: General Public 
 
@@ -24,12 +24,10 @@ Title Page
     files.
 
   1.1 Identification
-
     This release, identified in 3.2, is a collection of Perl modules that
     extend the capabilities of the Perl language.
 
   1.2 System overview
-
     The system is the Perl programming language software. As established by
     the Perl referenced documents, program modules, such the "File::AnySpec"
     module, extend the Perl language.
@@ -39,8 +37,7 @@ Title Page
     systems.
 
   1.3 Document overview.
-
-    This document releases File::AnySpec version 0.03 providing a
+    This document releases File::AnySpec version 0.04 providing a
     description of the inventory, installation instructions and other
     information necessary to utilize and track this release.
 
@@ -49,11 +46,10 @@ Title Page
     specification.
 
   3.1 Inventory of materials released.
-
     This document releases the file found at the following repository(s):
 
-       http://www.softwarediamonds/packages/File-AnySpec-0.03
-       http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/File-AnySpec-0.03
+       http://www.softwarediamonds/packages/File-AnySpec-0.04
+       http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/File-AnySpec-0.04
 
     Restrictions regarding duplication and license provisions are as
     follows:
@@ -92,32 +88,33 @@ Title Page
         OF SUCH DAMAGE.
 
   3.2 Inventory of software contents
-
     The content of the released, compressed, archieve file, consists of the
     following files:
 
      file                                                         version date       comment
      ------------------------------------------------------------ ------- ---------- ------------------------
-     lib/Docs/Site_SVD/File_AnySpec.pm                            0.03    2003/07/15 revised 0.02
-     MANIFEST                                                     0.03    2003/07/15 generated, replaces 0.02
-     Makefile.PL                                                  0.03    2003/07/15 generated, replaces 0.02
-     README                                                       0.03    2003/07/15 generated, replaces 0.02
-     lib/File/AnySpec.pm                                          1.11    2003/07/15 revised 1.1
-     t/File/AnySpec.d                                             0.01    2003/07/07 unchanged
+     lib/Docs/Site_SVD/File_AnySpec.pm                            0.04    2003/07/26 revised 0.03
+     MANIFEST                                                     0.04    2003/07/26 generated, replaces 0.03
+     Makefile.PL                                                  0.04    2003/07/26 generated, replaces 0.03
+     README                                                       0.04    2003/07/26 generated, replaces 0.03
+     lib/File/AnySpec.pm                                          1.11    2003/07/26 revised 1.1
+     t/File/AnySpec.d                                             0.02    2003/07/26 revised 0.01
      t/File/AnySpec.pm                                            0.01    2003/06/07 unchanged
-     t/File/AnySpec.t                                             0.01    2003/07/07 unchanged
+     t/File/AnySpec.t                                             0.08    2003/07/26 revised 0.07
      t/File/Drivers/Driver.pm                                     0.02    2003/07/04 unchanged
      t/File/Drivers/Generate.pm                                   0.02    2003/07/04 unchanged
      t/File/Drivers/IO.pm                                         0.02    2003/07/04 unchanged
+     tlib/File/SmartNL.pm                                         1.1     2003/07/26 new
+     tlib/Text/Scrub.pm                                           1.09    2003/07/26 new
+     tlib/Test/Tech.pm                                            1.1     2003/07/26 new
 
   3.3 Changes
-
     Changes are as follows:
 
-    Test::TestUtil 0.01
+    Test-TestUtil-0.01
         Originated
 
-    Test::TestUtil 0.02
+    Test-TestUtil-0.02
         Correct failure from Josts Smokehouse"
         <Jost.Krieger+smokeback@ruhr-uni-bochum.de> test run
 
@@ -140,7 +137,7 @@ Title Page
         specifications from one operating system to another operating
         system. This method has been in service unchanged for some time.
 
-    Test::TestUtil 0.03
+    Test-TestUtil-0.03
         Correct failure from Josts Smokehouse"
         <Jost.Krieger+smokeback@ruhr-uni-bochum.de> test run
 
@@ -169,7 +166,7 @@ Title Page
         added a discusssion of this feature in POD discription for
         *format_hash_table*
 
-    Test::TestUtil 0.04
+    Test-TestUtil-0.04
         item our old friend visits again - DOS and UNIX text file
         incompatibility
 
@@ -198,7 +195,7 @@ Title Page
 
           File::AnySpec - Manipulate file specifications for foreign operating systems
 
-         Revision: B
+         Revision: C
 
         [snip]
 
@@ -230,7 +227,8 @@ Title Page
         The *fin* method takes any \015\012 combination and changes it into
         the logical Perl new line, *"\n"*, for the current operating system.
 
-    File::FileUtil 0.01
+    File-FileUtil-0.01
+
         *   At 02:44 AM 6/14/2003 +0200, Max Maischein wrote: A second thing
             that I would like you to reconsider is the naming of
             "Test::TestUtil" respectively "Test::Tech" - neither of those is
@@ -275,10 +273,11 @@ Title Page
             must remote debug a load failure from CPAN testing whose is
             running on a different platform.
 
-    File::FileUtil 0.02
+    File-FileUtil-0.02
         Added the method *hex_dump*.
 
-    File::FileUtil 0.03
+    File-FileUtil-0.03
+
         test_lib2inc
             Returns to parent directory of the first t directory going up
             from the test script instead of the t directory.
@@ -287,13 +286,13 @@ Title Page
             Added the function find_t_roots that returns the parent
             directory of all the directories in @INC
 
-    File::AnySpec 0.01
+    File-AnySpec-0.01
         Removed the methods for converting a program module specification to
         its absolute file from the "File::FileUtil" module to their own
         module "File::AnySpec" module. The module name is now more
         descriptive of the routines in the module.
 
-    File::AnySpec 0.02
+    File-AnySpec-0.02
         At 08:40 AM 7/14/2003 +0000, Josts Smokehouse wrote:
 
         [snip]
@@ -319,29 +318,28 @@ Title Page
         dual input ok function remotely reported the error messages from
         loading the "File::AnySpec" module with a require.
 
+    File-AnySpec-0.03
+    File-AnySpec-0.04
+        Change test so that test support program modules resides in
+        distribution directory tlib directory instead of the lib directory.
+        Because they are no longer in the lib directory, test support files
+        will not be installed as a pre-condition for the test of this
+        module. The test of this module will precede immediately. The test
+        support files in the tlib directory will vanish after the
+        installtion.
+
   3.4 Adaptation data.
-
     This installation requires that the installation site has the Perl
-    programming language installed. Installation sites running Microsoft
-    Operating systems require the installation of Unix utilities. An
-    excellent, highly recommended Unix utilities for Microsoft operating
-    systems is unxutils by Karl M. Syring. A copy is available at the
-    following web sites:
-
-     http://unxutils.sourceforge.net
-     http://packages.SoftwareDiamnds.com
-
-    There are no other additional requirements or tailoring needed of
-    configurations files, adaptation data or other software needed for this
-    installation particular to any installation site.
+    programming language installed. There are no other additional
+    requirements or tailoring needed of configurations files, adaptation
+    data or other software needed for this installation particular to any
+    installation site.
 
   3.5 Related documents.
-
     There are no related documents needed for the installation and test of
     this release.
 
   3.6 Installation instructions.
-
     Instructions for installation, installation tests and installation
     support are as follows:
 
@@ -355,16 +353,12 @@ Title Page
 
         The distribution file is at the following respositories:
 
-           http://www.softwarediamonds/packages/File-AnySpec-0.03
-           http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/File-AnySpec-0.03
+           http://www.softwarediamonds/packages/File-AnySpec-0.04
+           http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/File-AnySpec-0.04
 
     Prerequistes.
-         'File::SmartNL' => '0',
-         'File::Package' => '0',
-         'File::TestPath' => '0',
-         'Text::Scrub' => '0',
-         'Test::Tech' => '1.08',
-         'File::PM2File' => '0',
+         'File::Package' => '1.1',
+         'File::PM2File' => '1.1',
 
     Security, privacy, or safety precautions.
         None.
@@ -382,7 +376,6 @@ Title Page
          603 882-0846 E<lt>support@SoftwareDiamonds.comE<gt>
 
   3.7 Possible problems and known errors
-
     There is still much work needed to ensure the quality of this module as
     follows:
 

@@ -10,23 +10,26 @@ use warnings;
 use warnings::register;
 
 use vars qw($VERSION $DATE $FILE );
-$VERSION = '0.03';
-$DATE = '2003/07/15';
+$VERSION = '0.04';
+$DATE = '2003/07/26';
 $FILE = __FILE__;
 
 use vars qw(%INVENTORY);
 %INVENTORY = (
-    'lib/Docs/Site_SVD/File_AnySpec.pm' => [qw(0.03 2003/07/15), 'revised 0.02'],
-    'MANIFEST' => [qw(0.03 2003/07/15), 'generated, replaces 0.02'],
-    'Makefile.PL' => [qw(0.03 2003/07/15), 'generated, replaces 0.02'],
-    'README' => [qw(0.03 2003/07/15), 'generated, replaces 0.02'],
-    'lib/File/AnySpec.pm' => [qw(1.11 2003/07/15), 'revised 1.1'],
-    't/File/AnySpec.d' => [qw(0.01 2003/07/07), 'unchanged'],
+    'lib/Docs/Site_SVD/File_AnySpec.pm' => [qw(0.04 2003/07/26), 'revised 0.03'],
+    'MANIFEST' => [qw(0.04 2003/07/26), 'generated, replaces 0.03'],
+    'Makefile.PL' => [qw(0.04 2003/07/26), 'generated, replaces 0.03'],
+    'README' => [qw(0.04 2003/07/26), 'generated, replaces 0.03'],
+    'lib/File/AnySpec.pm' => [qw(1.11 2003/07/26), 'revised 1.1'],
+    't/File/AnySpec.d' => [qw(0.02 2003/07/26), 'revised 0.01'],
     't/File/AnySpec.pm' => [qw(0.01 2003/06/07), 'unchanged'],
-    't/File/AnySpec.t' => [qw(0.01 2003/07/07), 'unchanged'],
+    't/File/AnySpec.t' => [qw(0.08 2003/07/26), 'revised 0.07'],
     't/File/Drivers/Driver.pm' => [qw(0.02 2003/07/04), 'unchanged'],
     't/File/Drivers/Generate.pm' => [qw(0.02 2003/07/04), 'unchanged'],
     't/File/Drivers/IO.pm' => [qw(0.02 2003/07/04), 'unchanged'],
+    'tlib/File/SmartNL.pm' => [qw(1.1 2003/07/26), 'new'],
+    'tlib/Text/Scrub.pm' => [qw(1.09 2003/07/26), 'new'],
+    'tlib/Test/Tech.pm' => [qw(1.1 2003/07/26), 'new'],
 
 );
 
@@ -53,11 +56,11 @@ use vars qw(%INVENTORY);
 
   File::AnySpec - Manipulate file specifications for foreign operating systems
 
- Revision: B
+ Revision: C
 
- Version: 0.03
+ Version: 0.04
 
- Date: 2003/07/15
+ Date: 2003/07/26
 
  Prepared for: General Public 
 
@@ -92,7 +95,7 @@ operating system but for foreign operating systems.
 
 =head2 1.3 Document overview.
 
-This document releases File::AnySpec version 0.03
+This document releases File::AnySpec version 0.04
 providing a description of the inventory, installation
 instructions and other information necessary to
 utilize and track this release.
@@ -108,8 +111,8 @@ system file specification.
 This document releases the file found
 at the following repository(s):
 
-   http://www.softwarediamonds/packages/File-AnySpec-0.03
-   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/File-AnySpec-0.03
+   http://www.softwarediamonds/packages/File-AnySpec-0.04
+   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/File-AnySpec-0.04
 
 
 Restrictions regarding duplication and license provisions
@@ -177,17 +180,20 @@ consists of the following files:
 
  file                                                         version date       comment
  ------------------------------------------------------------ ------- ---------- ------------------------
- lib/Docs/Site_SVD/File_AnySpec.pm                            0.03    2003/07/15 revised 0.02
- MANIFEST                                                     0.03    2003/07/15 generated, replaces 0.02
- Makefile.PL                                                  0.03    2003/07/15 generated, replaces 0.02
- README                                                       0.03    2003/07/15 generated, replaces 0.02
- lib/File/AnySpec.pm                                          1.11    2003/07/15 revised 1.1
- t/File/AnySpec.d                                             0.01    2003/07/07 unchanged
+ lib/Docs/Site_SVD/File_AnySpec.pm                            0.04    2003/07/26 revised 0.03
+ MANIFEST                                                     0.04    2003/07/26 generated, replaces 0.03
+ Makefile.PL                                                  0.04    2003/07/26 generated, replaces 0.03
+ README                                                       0.04    2003/07/26 generated, replaces 0.03
+ lib/File/AnySpec.pm                                          1.11    2003/07/26 revised 1.1
+ t/File/AnySpec.d                                             0.02    2003/07/26 revised 0.01
  t/File/AnySpec.pm                                            0.01    2003/06/07 unchanged
- t/File/AnySpec.t                                             0.01    2003/07/07 unchanged
+ t/File/AnySpec.t                                             0.08    2003/07/26 revised 0.07
  t/File/Drivers/Driver.pm                                     0.02    2003/07/04 unchanged
  t/File/Drivers/Generate.pm                                   0.02    2003/07/04 unchanged
  t/File/Drivers/IO.pm                                         0.02    2003/07/04 unchanged
+ tlib/File/SmartNL.pm                                         1.1     2003/07/26 new
+ tlib/Text/Scrub.pm                                           1.09    2003/07/26 new
+ tlib/Test/Tech.pm                                            1.1     2003/07/26 new
 
 
 =head2 3.3 Changes
@@ -196,11 +202,11 @@ Changes are as follows:
 
 =over 4
 
-=item Test::TestUtil 0.01
+=item Test-TestUtil-0.01
 
 Originated
 
-=item Test::TestUtil 0.02
+=item Test-TestUtil-0.02
 
 Correct failure from Josts Smokehouse" <Jost.Krieger+smokeback@ruhr-uni-bochum.de>
 test run
@@ -225,7 +231,7 @@ that changes file specifications from one operating system
 to another operating system.
 This method has been in service unchanged for some time.
 
-=item Test::TestUtil 0.03
+=item Test-TestUtil-0.03
 
 Correct failure from Josts Smokehouse" <Jost.Krieger+smokeback@ruhr-uni-bochum.de>
 test run
@@ -255,7 +261,7 @@ test script for this
 feature, and added a discusssion of this feature in
 POD discription for I<format_hash_table>
 
-=item Test::TestUtil 0.04
+=item Test-TestUtil-0.04
 
 item our old friend visits again - DOS and UNIX text file incompatibility
 
@@ -285,7 +291,7 @@ t/Test/TestUtil/TestUtil....NOK 18# Test 18 got: '$VAR1 = '\\=head1 Title Page
   File::AnySpec - Manipulate file specifications for foreign operating systems
 
 
- Revision: B
+ Revision: C
 
 [snip]
 
@@ -320,7 +326,7 @@ instead of using the raw file handle.
 The I<fin> method takes any \015\012 combination and changes it into the 
 logical Perl new line, I<"\n">, for the current operating system.
 
-=item File::FileUtil 0.01
+=item File-FileUtil-0.01
 
 =over 4
 
@@ -375,11 +381,11 @@ failure from CPAN testing whose is running on a different platform.
 
 =back
 
-=item File::FileUtil 0.02
+=item File-FileUtil-0.02
 
 Added the method I<hex_dump>.
 
-=item File::FileUtil 0.03
+=item File-FileUtil-0.03
 
 =over 4
 
@@ -398,7 +404,7 @@ the directories in @INC
 
 =back
 
-=item File::AnySpec 0.01
+=item File-AnySpec-0.01
 
 Removed the methods for converting a
 program module specification to its
@@ -408,7 +414,7 @@ absolute file from the
 The module name is now more descriptive
 of the routines in the module.
 
-=item File::AnySpec 0.02
+=item File-AnySpec-0.02
 
 At 08:40 AM 7/14/2003 +0000, Josts Smokehouse wrote:
 
@@ -438,21 +444,25 @@ Very pleased the way the File::Package funcstions and the "Test" dual input ok f
 remotely reported the error messages from loading the "File::AnySpec" module with a
 require.
 
+=item File-AnySpec-0.03
+
+=item File-AnySpec-0.04
+
+Change test so that test support program modules resides in distribution
+directory tlib directory instead of the lib directory. 
+Because they are no longer in the lib directory, 
+test support files will not be installed as a pre-condition for the 
+test of this module.
+The test of this module will precede immediately.
+The test support files in the tlib directory will vanish after
+the installtion.
+
 =back
 
 =head2 3.4 Adaptation data.
 
 This installation requires that the installation site
 has the Perl programming language installed.
-Installation sites running Microsoft Operating systems require
-the installation of Unix utilities. 
-An excellent, highly recommended Unix utilities for Microsoft
-operating systems is unxutils by Karl M. Syring.
-A copy is available at the following web sites:
-
- http://unxutils.sourceforge.net
- http://packages.SoftwareDiamnds.com
-
 There are no other additional requirements or tailoring needed of 
 configurations files, adaptation data or other software needed for this
 installation particular to any installation site.
@@ -480,18 +490,14 @@ Follow the instructions for the the chosen installation software.
 
 The distribution file is at the following respositories:
 
-   http://www.softwarediamonds/packages/File-AnySpec-0.03
-   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/File-AnySpec-0.03
+   http://www.softwarediamonds/packages/File-AnySpec-0.04
+   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/File-AnySpec-0.04
 
 
 =item Prerequistes.
 
- 'File::SmartNL' => '0',
- 'File::Package' => '0',
- 'File::TestPath' => '0',
- 'Text::Scrub' => '0',
- 'Test::Tech' => '1.08',
- 'File::PM2File' => '0',
+ 'File::Package' => '1.1',
+ 'File::PM2File' => '1.1',
 
 
 =item Security, privacy, or safety precautions.
@@ -573,7 +579,6 @@ Plain Old Documentation
 
 =head1 2.0 SEE ALSO
 
- 
 L<File::AnySpec|File::AnySpec>
 
 =for html
@@ -601,11 +606,11 @@ __DATA__
 DISTNAME: File-AnySpec^
 REPOSITORY_DIR: packages^
 
-VERSION : 0.03^
+VERSION : 0.04^
 FREEZE: 1^
 PREVIOUS_DISTNAME:  ^
-PREVIOUS_RELEASE: 0.02^
-REVISION: B^
+PREVIOUS_RELEASE: 0.03^
+REVISION: C^
 
 AUTHOR  : SoftwareDiamonds.com E<lt>support@SoftwareDiamonds.comE<gt>^
 
@@ -637,15 +642,14 @@ AUTO_REVISE:
 lib/File/AnySpec.pm
 t/File/AnySpec.*
 t/File/Drivers/*
+lib/File/SmartNL.pm => tlib/File/SmartNL.pm
+lib/Text/Scrub.pm => tlib/Text/Scrub.pm
+lib/Test/Tech.pm => tlib/Test/Tech.pm
 ^
 
 PREREQ_PM:
-'File::SmartNL' => '0',
-'File::Package' => '0',
-'File::TestPath' => '0',
-'Text::Scrub' => '0',
-'Test::Tech' => '1.08',
-'File::PM2File' => '0',
+'File::Package' => '1.1',
+'File::PM2File' => '1.1',
 ^
 
 TESTS: t/File/AnySpec.t^
@@ -656,11 +660,11 @@ Changes are as follows:
 
 \=over 4
 
-\=item Test::TestUtil 0.01
+\=item Test-TestUtil-0.01
 
 Originated
 
-\=item Test::TestUtil 0.02
+\=item Test-TestUtil-0.02
 
 Correct failure from Josts Smokehouse" <Jost.Krieger+smokeback@ruhr-uni-bochum.de>
 test run
@@ -685,7 +689,7 @@ that changes file specifications from one operating system
 to another operating system.
 This method has been in service unchanged for some time.
 
-\=item Test::TestUtil 0.03
+\=item Test-TestUtil-0.03
 
 Correct failure from Josts Smokehouse" <Jost.Krieger+smokeback@ruhr-uni-bochum.de>
 test run
@@ -715,7 +719,7 @@ test script for this
 feature, and added a discusssion of this feature in
 POD discription for I<format_hash_table>
 
-\=item Test::TestUtil 0.04
+\=item Test-TestUtil-0.04
 
 item our old friend visits again - DOS and UNIX text file incompatibility
 
@@ -780,7 +784,7 @@ instead of using the raw file handle.
 The I<fin> method takes any \015\012 combination and changes it into the 
 logical Perl new line, I<"\n">, for the current operating system.
 
-\=item File::FileUtil 0.01
+\=item File-FileUtil-0.01
 
 \=over 4
 
@@ -835,11 +839,11 @@ failure from CPAN testing whose is running on a different platform.
 
 \=back
 
-\=item File::FileUtil 0.02
+\=item File-FileUtil-0.02
 
 Added the method I<hex_dump>.
 
-\=item File::FileUtil 0.03
+\=item File-FileUtil-0.03
 
 \=over 4
 
@@ -858,7 +862,7 @@ the directories in @INC
 
 \=back
 
-\=item File::AnySpec 0.01
+\=item File-AnySpec-0.01
 
 Removed the methods for converting a
 program module specification to its
@@ -868,7 +872,7 @@ absolute file from the
 The module name is now more descriptive
 of the routines in the module.
 
-\=item File::AnySpec 0.02
+\=item File-AnySpec-0.02
 
 At 08:40 AM 7/14/2003 +0000, Josts Smokehouse wrote:
 
@@ -897,6 +901,19 @@ Added a 1 at the end of the code section in hopes this will cure this error.
 Very pleased the way the File::Package funcstions and the "Test" dual input ok function
 remotely reported the error messages from loading the "File::AnySpec" module with a
 require.
+
+\=item File-AnySpec-0.03
+
+\=item File-AnySpec-0.04
+
+Change test so that test support program modules resides in distribution
+directory tlib directory instead of the lib directory. 
+Because they are no longer in the lib directory, 
+test support files will not be installed as a pre-condition for the 
+test of this module.
+The test of this module will precede immediately.
+The test support files in the tlib directory will vanish after
+the installtion.
 
 \=back
 

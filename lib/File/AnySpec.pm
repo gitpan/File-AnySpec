@@ -11,8 +11,8 @@ use warnings;
 use warnings::register;
 
 use vars qw($VERSION $DATE);
-$VERSION = '1.1';
-$DATE = '2003/07/15';
+$VERSION = '1.11';
+$DATE = '2003/07/26';
 
 use SelfLoader;
 use File::Spec;
@@ -96,6 +96,10 @@ sub fspec2fspec
 
 }
 
+1
+
+__DATA__
+
 ######
 #
 #
@@ -108,10 +112,6 @@ sub pm2fspec
    $path = File::AnySpec->os2fspec( $fspec, $path, 'nofile');
    ($file, $path, $require)
 }
-
-1
-
-__DATA__
 
 
 #####

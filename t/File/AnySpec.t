@@ -7,15 +7,13 @@ use warnings;
 use warnings::register;
 
 use vars qw($VERSION $DATE $FILE);
-$VERSION = '0.07';   # automatically generated file
-$DATE = '2003/07/04';
+$VERSION = '0.08';   # automatically generated file
+$DATE = '2003/07/26';
 $FILE = __FILE__;
 
-use Test::Tech;
 use Getopt::Long;
 use Cwd;
 use File::Spec;
-use File::TestPath;
 
 ##### Test Script ####
 #
@@ -50,17 +48,53 @@ BEGIN {
    # Working directory is that of the script file
    #
    $__restore_dir__ = cwd();
-   my ($vol, $dirs, undef) = File::Spec->splitpath(__FILE__);
+   my ($vol, $dirs) = File::Spec->splitpath(__FILE__);
    chdir $vol if $vol;
    chdir $dirs if $dirs;
+   ($vol, $dirs) = File::Spec->splitpath(cwd(), 'nofile'); # absolutify
 
    #######
    # Add the library of the unit under test (UUT) to @INC
+   # It will be found first because it is first in the include path
    #
-   @__restore_inc__ = File::TestPath->test_lib2inc();
+   use Cwd;
+   @__restore_inc__ = @INC;
 
-   unshift @INC, File::Spec->catdir( cwd(), 'lib' ); 
+   ######
+   # Find root path of the t directory
+   #
+   my @updirs = File::Spec->splitdir( $dirs );
+   while(@updirs && $updirs[-1] ne 't' ) { 
+       chdir File::Spec->updir();
+       pop @updirs;
+   };
+   chdir File::Spec->updir();
+   my $lib_dir = cwd();
 
+   #####
+   # Add this to the include path. Thus modules that start with t::
+   # will be found.
+   # 
+   $lib_dir =~ s|/|\\|g if $^O eq 'MSWin32';  # microsoft abberation
+   unshift @INC, $lib_dir;  # include the current test directory
+
+   #####
+   # Add lib to the include path so that modules under lib at the
+   # same level as t, will be found
+   #
+   $lib_dir = File::Spec->catdir( cwd(), 'lib' );
+   $lib_dir =~ s|/|\\|g if $^O eq 'MSWin32';  # microsoft abberation
+   unshift @INC, $lib_dir;
+
+   #####
+   # Add tlib to the include path so that modules under tlib at the
+   # same level as t, will be found
+   #
+   $lib_dir = File::Spec->catdir( cwd(), 'tlib' );
+   $lib_dir =~ s|/|\\|g if $^O eq 'MSWin32';  # microsoft abberation
+   unshift @INC, $lib_dir;
+   chdir $dirs if $dirs;
+ 
    ##########
    # Pick up a output redirection file and tests to skip
    # from the command line.
@@ -69,6 +103,12 @@ BEGIN {
    GetOptions('log=s' => \$test_log);
 
    ########
+   # Using Test::Tech, a very light layer over the module "Test" to
+   # conduct the tests.  The big feature of the "Test::Tech: module
+   # is that it takes a expected and actual reference and stringify
+   # them by using "Data::Dumper" before passing them to the "ok"
+   # in test.
+   #
    # Create the test plan by supplying the number of tests
    # and the todo tests
    #

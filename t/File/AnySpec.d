@@ -7,8 +7,8 @@ use warnings;
 use warnings::register;
 
 use vars qw($VERSION $DATE);
-$VERSION = '0.01';   # automatically generated file
-$DATE = '2003/07/04';
+$VERSION = '0.02';   # automatically generated file
+$DATE = '2003/07/26';
 
 
 ##### Demonstration Script ####
@@ -41,7 +41,7 @@ BEGIN {
     use Cwd;
     use File::Spec;
     use File::TestPath;
-    use Test::Tech qw(tech_config plan demo);
+    use Test::Tech qw(tech_config plan demo skip_tests);
 
     ########
     # Working directory is that of the script file
