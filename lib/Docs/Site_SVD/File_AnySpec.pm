@@ -10,26 +10,27 @@ use warnings;
 use warnings::register;
 
 use vars qw($VERSION $DATE $FILE );
-$VERSION = '0.05';
-$DATE = '2003/09/12';
+$VERSION = '0.06';
+$DATE = '2004/04/09';
 $FILE = __FILE__;
 
 use vars qw(%INVENTORY);
 %INVENTORY = (
-    'lib/Docs/Site_SVD/File_AnySpec.pm' => [qw(0.05 2003/09/12), 'revised 0.04'],
-    'MANIFEST' => [qw(0.05 2003/09/12), 'generated, replaces 0.04'],
-    'Makefile.PL' => [qw(0.05 2003/09/12), 'generated, replaces 0.04'],
-    'README' => [qw(0.05 2003/09/12), 'generated, replaces 0.04'],
-    'lib/File/AnySpec.pm' => [qw(1.12 2003/09/12), 'revised 1.11'],
-    't/File/AnySpec.d' => [qw(0.01 2003/07/26), 'unchanged'],
-    't/File/AnySpec.pm' => [qw(0.01 2003/06/07), 'unchanged'],
-    't/File/AnySpec.t' => [qw(0.09 2003/09/12), 'revised 0.08'],
+    'lib/Docs/Site_SVD/File_AnySpec.pm' => [qw(0.06 2004/04/09), 'revised 0.05'],
+    'MANIFEST' => [qw(0.06 2004/04/09), 'generated, replaces 0.05'],
+    'Makefile.PL' => [qw(0.06 2004/04/09), 'generated, replaces 0.05'],
+    'README' => [qw(0.06 2004/04/09), 'generated, replaces 0.05'],
+    'lib/File/AnySpec.pm' => [qw(1.13 2004/04/09), 'revised 1.12'],
+    't/File/AnySpec.d' => [qw(0.03 2004/04/09), 'revised 0.02'],
+    't/File/AnySpec.pm' => [qw(0.02 2004/04/09), 'revised 0.01'],
+    't/File/AnySpec.t' => [qw(0.1 2004/04/09), 'revised 0.09'],
     't/File/Drivers/Driver.pm' => [qw(0.02 2003/07/04), 'unchanged'],
     't/File/Drivers/Generate.pm' => [qw(0.02 2003/07/04), 'unchanged'],
     't/File/Drivers/IO.pm' => [qw(0.02 2003/07/04), 'unchanged'],
-    'tlib/File/SmartNL.pm' => [qw(1.12 2003/09/12), 'unchanged'],
-    'tlib/Text/Scrub.pm' => [qw(1.09 2003/09/12), 'unchanged'],
-    'tlib/Test/Tech.pm' => [qw(1.13 2003/09/12), 'revised 1.1'],
+    't/File/File/SmartNL.pm' => [qw(1.13 2004/04/09), 'new'],
+    't/File/Text/Scrub.pm' => [qw(1.11 2004/04/09), 'new'],
+    't/File/Test/Tech.pm' => [qw(1.17 2004/04/09), 'new'],
+    't/File/Data/Secs2.pm' => [qw(1.15 2004/04/09), 'new'],
 
 );
 
@@ -56,11 +57,11 @@ use vars qw(%INVENTORY);
 
   File::AnySpec - Manipulate file specifications for foreign operating systems
 
- Revision: D
+ Revision: E
 
- Version: 0.05
+ Version: 0.06
 
- Date: 2003/09/12
+ Date: 2004/04/09
 
  Prepared for: General Public 
 
@@ -95,7 +96,7 @@ operating system but for foreign operating systems.
 
 =head2 1.3 Document overview.
 
-This document releases File::AnySpec version 0.05
+This document releases File::AnySpec version 0.06
 providing a description of the inventory, installation
 instructions and other information necessary to
 utilize and track this release.
@@ -108,12 +109,14 @@ system file specification.
 
 =head2 3.1 Inventory of materials released.
 
-This document releases the file found
-at the following repository(s):
+This document releases the file 
 
-   http://www.softwarediamonds/packages/File-AnySpec-0.05
-   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/File-AnySpec-0.05
+ File-AnySpec-0.06.tar.gz
 
+found at the following repository(s):
+
+  http://www.softwarediamonds/packages/
+  http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/
 
 Restrictions regarding duplication and license provisions
 are as follows:
@@ -180,20 +183,21 @@ consists of the following files:
 
  file                                                         version date       comment
  ------------------------------------------------------------ ------- ---------- ------------------------
- lib/Docs/Site_SVD/File_AnySpec.pm                            0.05    2003/09/12 revised 0.04
- MANIFEST                                                     0.05    2003/09/12 generated, replaces 0.04
- Makefile.PL                                                  0.05    2003/09/12 generated, replaces 0.04
- README                                                       0.05    2003/09/12 generated, replaces 0.04
- lib/File/AnySpec.pm                                          1.12    2003/09/12 revised 1.11
- t/File/AnySpec.d                                             0.01    2003/07/26 unchanged
- t/File/AnySpec.pm                                            0.01    2003/06/07 unchanged
- t/File/AnySpec.t                                             0.09    2003/09/12 revised 0.08
+ lib/Docs/Site_SVD/File_AnySpec.pm                            0.06    2004/04/09 revised 0.05
+ MANIFEST                                                     0.06    2004/04/09 generated, replaces 0.05
+ Makefile.PL                                                  0.06    2004/04/09 generated, replaces 0.05
+ README                                                       0.06    2004/04/09 generated, replaces 0.05
+ lib/File/AnySpec.pm                                          1.13    2004/04/09 revised 1.12
+ t/File/AnySpec.d                                             0.03    2004/04/09 revised 0.02
+ t/File/AnySpec.pm                                            0.02    2004/04/09 revised 0.01
+ t/File/AnySpec.t                                             0.1     2004/04/09 revised 0.09
  t/File/Drivers/Driver.pm                                     0.02    2003/07/04 unchanged
  t/File/Drivers/Generate.pm                                   0.02    2003/07/04 unchanged
  t/File/Drivers/IO.pm                                         0.02    2003/07/04 unchanged
- tlib/File/SmartNL.pm                                         1.12    2003/09/12 unchanged
- tlib/Text/Scrub.pm                                           1.09    2003/09/12 unchanged
- tlib/Test/Tech.pm                                            1.13    2003/09/12 revised 1.1
+ t/File/File/SmartNL.pm                                       1.13    2004/04/09 new
+ t/File/Text/Scrub.pm                                         1.11    2004/04/09 new
+ t/File/Test/Tech.pm                                          1.17    2004/04/09 new
+ t/File/Data/Secs2.pm                                         1.15    2004/04/09 new
 
 
 =head2 3.3 Changes
@@ -291,7 +295,7 @@ t/Test/TestUtil/TestUtil....NOK 18# Test 18 got: '$VAR1 = '\\=head1 Title Page
   File::AnySpec - Manipulate file specifications for foreign operating systems
 
 
- Revision: D
+ Revision: E
 
 [snip]
 
@@ -461,9 +465,23 @@ the installtion.
 
 Added subroutine interfaces.
 
-Use Archive::TarGzip that uses modd 777 for directories instead of 666. Started to get
+Use Archive::TarGzip 0.02 that uses modd 777 for directories instead of 666. Started to get
 emails from Unix about untar not being able to change to
 a directory with mod of 666.
+
+=item File-AnySpec-0.06
+
+Added the 'Data-Secs2' to the 'tlib' test library.
+Upgraded to the 'Test-Tech' module that uses the 'Data-Secs2' module.
+
+The lastest build of C<Test::STDmaker> expects the test library in the same
+directory as the test script.
+Coordiated with the lastest Test::STDmaker by moving the
+test library from tlib to C<t/File>, the same directory as the test script
+and deleting the test library File::TestPath program module.
+
+Changed from the obsolete C<File::PM2File> program module to 
+the C<File::Where> program module.
 
 =back
 
@@ -489,23 +507,41 @@ and installation support are as follows:
 
 =item Installation Instructions.
 
-To installed the release file, use the CPAN module in the Perl release
+To installed the release file, use the CPAN module
+pr PPM module in the Perl release
 or the INSTALL.PL script at the following web site:
 
  http://packages.SoftwareDiamonds.com
 
 Follow the instructions for the the chosen installation software.
 
-The distribution file is at the following respositories:
+If all else fails, the file may be manually installed.
+Enter one of the following repositories in a web browser:
 
-   http://www.softwarediamonds/packages/File-AnySpec-0.05
-   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/File-AnySpec-0.05
+  http://www.softwarediamonds/packages/
+  http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/
 
+Right click on 'File-AnySpec-0.06.tar.gz' and download to a temporary
+installation directory.
+Enter the following where $make is 'nmake' for microsoft
+windows; otherwise 'make'.
+
+ gunzip File-AnySpec-0.06.tar.gz
+ tar -xf File-AnySpec-0.06.tar
+ perl Makefile.PL
+ $make test
+ $make install
+
+On Microsoft operating system, nmake, tar, and gunzip 
+must be in the exeuction path. If tar and gunzip are
+not install, download and install unxutils from
+
+ http://packages.softwarediamonds.com
 
 =item Prerequistes.
 
- 'File::Package' => '1.1',
- 'File::PM2File' => '1.1',
+ 'File::Package' => '1.12',
+ 'File::Where' => '0.03',
 
 
 =item Security, privacy, or safety precautions.
@@ -620,11 +656,11 @@ __DATA__
 DISTNAME: File-AnySpec^
 REPOSITORY_DIR: packages^
 
-VERSION : 0.05^
+VERSION : 0.06^
 FREEZE: 1^
 PREVIOUS_DISTNAME:  ^
-PREVIOUS_RELEASE: 0.04^
-REVISION: D^
+PREVIOUS_RELEASE: 0.05^
+REVISION: E^
 
 AUTHOR  : SoftwareDiamonds.com E<lt>support@SoftwareDiamonds.comE<gt>^
 
@@ -656,19 +692,20 @@ AUTO_REVISE:
 lib/File/AnySpec.pm
 t/File/AnySpec.*
 t/File/Drivers/*
-lib/File/SmartNL.pm => tlib/File/SmartNL.pm
-lib/Text/Scrub.pm => tlib/Text/Scrub.pm
-lib/Test/Tech.pm => tlib/Test/Tech.pm
+lib/File/SmartNL.pm => t/File/File/SmartNL.pm
+lib/Text/Scrub.pm => t/File/Text/Scrub.pm
+lib/Test/Tech.pm => t/File/Test/Tech.pm
+lib/Data/Secs2.pm => t/File/Data/Secs2.pm
 ^
 
 PREREQ_PM:
-'File::Package' => '1.1',
-'File::PM2File' => '1.1',
+'File::Package' => '1.12',
+'File::Where' => '0.03',
 ^
-
+README_PODS: lib/File/AnySpec.pm^
 TESTS: t/File/AnySpec.t^
-
 EXE_FILES:  ^
+
 CHANGES:
 Changes are as follows: 
 
@@ -933,9 +970,23 @@ the installtion.
 
 Added subroutine interfaces.
 
-Use Archive::TarGzip that uses modd 777 for directories instead of 666. Started to get
+Use Archive::TarGzip 0.02 that uses modd 777 for directories instead of 666. Started to get
 emails from Unix about untar not being able to change to
 a directory with mod of 666.
+
+\=item File-AnySpec-0.06
+
+Added the 'Data-Secs2' to the 'tlib' test library.
+Upgraded to the 'Test-Tech' module that uses the 'Data-Secs2' module.
+
+The lastest build of C<Test::STDmaker> expects the test library in the same
+directory as the test script.
+Coordiated with the lastest Test::STDmaker by moving the
+test library from tlib to C<t/File>, the same directory as the test script
+and deleting the test library File::TestPath program module.
+
+Changed from the obsolete C<File::PM2File> program module to 
+the C<File::Where> program module.
 
 \=back
 
@@ -1038,19 +1089,39 @@ ANY WAY OUT OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 INSTALLATION:
-To installed the release file, use the CPAN module in the Perl release
+To installed the release file, use the CPAN module
+pr PPM module in the Perl release
 or the INSTALL.PL script at the following web site:
 
  http://packages.SoftwareDiamonds.com
 
 Follow the instructions for the the chosen installation software.
 
-The distribution file is at the following respositories:
+If all else fails, the file may be manually installed.
+Enter one of the following repositories in a web browser:
 
 ${REPOSITORY}
+
+Right click on '${DIST_FILE}' and download to a temporary
+installation directory.
+Enter the following where $make is 'nmake' for microsoft
+windows; otherwise 'make'.
+
+ gunzip ${BASE_DIST_FILE}.tar.${COMPRESS_SUFFIX}
+ tar -xf ${BASE_DIST_FILE}.tar
+ perl Makefile.PL
+ $make test
+ $make install
+
+On Microsoft operating system, nmake, tar, and gunzip 
+must be in the exeuction path. If tar and gunzip are
+not install, download and install unxutils from
+
+ http://packages.softwarediamonds.com
 ^
 
-SUPPORT: 603 882-0846 E<lt>support@SoftwareDiamonds.comE<gt>^
+SUPPORT: 603 882-0846 E<lt>support@SoftwareDiamonds.comE<gt>
+^
 
 NOTES:
 The following are useful acronyms:

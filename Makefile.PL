@@ -23,12 +23,12 @@ my $tests = join ' ',unix2os('t/File/AnySpec.t');
 WriteMakefile(
     NAME => 'File::AnySpec',
     DISTNAME => 'File-AnySpec',
-    VERSION  => '0.05',
+    VERSION  => '0.06',
     dist     => {COMPRESS => 'gzip',
                 'gz' => 'gz'},
     test     => {TESTS => $tests},
-    PREREQ_PM => {'File::Package' => '1.1',
-                  'File::PM2File' => '1.1',},
+    PREREQ_PM => {'File::Package' => '1.12',
+                  'File::Where' => '0.03',},
     
 
     ($] >= 5.005 ?     

@@ -11,8 +11,8 @@ use warnings;
 use warnings::register;
 
 use vars qw($VERSION $DATE);
-$VERSION = '1.12';
-$DATE = '2003/09/12';
+$VERSION = '1.13';
+$DATE = '2004/04/09';
 
 use vars qw(@ISA @EXPORT_OK);
 require Exporter;
@@ -34,7 +34,7 @@ use File::Spec;
 # little advantage in placing a require in subroutines.
 #
 #####
-use File::PM2File;
+use File::Where;
 use File::Package;
 
 ######
@@ -130,7 +130,7 @@ sub pm2fspec
     #
     shift @_ if UNIVERSAL::isa($_[0],__PACKAGE__);
     my ($fspec, $pm) = @_;
-    my ($file,$path, $require) = File::PM2File->pm2file($pm);
+    my ($file,$path, $require) = File::Where->where_pm($pm);
     $file = os2fspec( $fspec, $file);
     $require = os2fspec( $fspec, $require);
     $path = os2fspec( $fspec, $path, 'nofile');
@@ -148,7 +148,12 @@ sub os2fspec
     #
     shift @_ if UNIVERSAL::isa($_[0],__PACKAGE__);
     my ($fspec, $os_file, $nofile) = @_;
-    fspec2fspec($^O, $fspec, $os_file, $nofile);
+    my $OS; 
+    unless ($OS = $^O) {   # on some perls $^O is not defined
+	require Config;
+	$OS = $Config::Config{'osname'};
+    }
+    fspec2fspec($OS, $fspec, $os_file, $nofile);
 }
 
 #####
@@ -161,7 +166,12 @@ sub fspec2os
     #
     shift @_ if UNIVERSAL::isa($_[0],__PACKAGE__);
     my ($fspec, $fspec_file, $nofile) = @_;
-    fspec2fspec($fspec, $^O, $fspec_file, $nofile);
+    my $OS; 
+    unless ($OS = $^O) {   # on some perls $^O is not defined
+	require Config;
+	$OS = $Config::Config{'osname'};
+    }
+    fspec2fspec($fspec, $OS, $fspec_file, $nofile);
 }
 
 #######
@@ -287,14 +297,14 @@ I<$fspec> variable.
 
 =head2 fspec_glob method
 
-  @globed_files = File::FileUtil->fspec_glob($fspec, @files)
+  @globed_files = File::AnySpec->fspec_glob($fspec, @files)
 
 The I<fspec_glob> method BSD globs each of the files in I<@files>
 where the file specification for each of the files is I<$fspec>.
 
 =head2 fspec2fspec method
 
- $to_file = File::FileUtil->fspec2fspec($from_fspec, $to_fspec $from_file, $nofile)
+ $to_file = File::AnySpec->fspec2fspec($from_fspec, $to_fspec $from_file, $nofile)
 
 THe I<fspec2fspec> method translate the file specification for I<$from_file> from
 the I<$from_fspec> to the I<$to_fpsce>. Supplying anything for I<$nofile>, tells
@@ -303,7 +313,7 @@ is a file.
 
 =head2 fspec2os method
 
-  $os_file = File::FileUtil->fspec2os($fspec, $file, $no_file)
+  $os_file = File::AnySpec->fspec2os($fspec, $file, $no_file)
 
 The I<fspec2os> method translates a file specification, I<$file>, from the
 current operating system file specification to the I<$fspec> file specification.
@@ -313,14 +323,14 @@ is a file.
 
 =head2 fspec2pm method
 
- $pm_file = File::FileUtil->fspec2pm( $fspec, $relative_file )
+ $pm_file = File::AnySpec->fspec2pm( $fspec, $relative_file )
 
 The I<fspec2pm> method translates a filespecification I<$file>
 in the I<$fspce> format to the Perl module formate.
 
 =head2 os2fspec method
 
- $file = File::FileUtil->os2fspec($fspec, $os_file, $no_file)
+ $file = File::AnySpec->os2fspec($fspec, $os_file, $no_file)
 
 The I<fspec2os> method translates a file specification, I<$file>, from the
 current operating system file specification to the I<$fspec> file specification.
@@ -328,13 +338,6 @@ Supplying anything for I<$nofile>, tells
 the I<fspec2fspec> method that I<$from_file> is a directory tree; otherwise, it
 is a file.
 
-=head2 pm2file method
-
- ($abs_file, $inc_path, $require_file) = File::FileUtil->pm2file($pm)
-
-The I<pm2file> method returns the absolute file and
-the directory in I<@INC> for a the program module
-I<$pm_file>.
 
 =head1 REQUIREMENTS
 
@@ -391,9 +394,10 @@ follow on the next lines. For example,
  '/Perl/lib'
  'File/Basename.pm'
 
+
 =head1 QUALITY ASSURANCE
 
-Running the test script 'Gzip.t' found in
+Running the test script 'AnySpec.t' found in
 the "File-AnySpec-$VERSION.tar.gz" distribution file verifies
 the requirements for this module.
 
@@ -408,7 +412,7 @@ The 't::File::AnySpec' L<STD|Docs::US_DOD::STD> POD contains
 a tracebility matix between the
 requirements established above for this module, and
 the test steps identified by a
-'ok' number from running the 'Gzip.t'
+'ok' number from running the 'AnySpec.t'
 test script.
 
 The t::File::AnySpec' L<STD|Docs::US_DOD::STD>
@@ -419,7 +423,7 @@ to perform the following:
 
 =item *
 
-to generate the test script 'Gzip.t'
+to generate the test script 'AnySpec.t'
 
 =item *
 
@@ -429,13 +433,13 @@ the 't::File::AnySpec' module,
 
 =item *
 
-generate the 'Gzip.d' demo script, 
+generate the 'AnySpec.d' demo script, 
 
 =item *
 
 replace the POD demonstration section
 herein with the demo script
-'Gzip.d' output, and
+'AnySpec.d' output, and
 
 =item *
 
@@ -480,7 +484,7 @@ executable path
 
 place the 't::File::AnySpec' at the same
 level in the directory struture as the
-directory holding the 'Tie::Gzip'
+directory holding the 'File::AnySpec'
 module
 
 =item *
@@ -545,7 +549,7 @@ Make any appropriate changes to the
 __DATA__ section of the 'Docs::Site_SVD::File_AnySpec'
 module.
 For example, any changes to
-'Tie::Gzip' will impact the
+'File::AnySpec' will impact the
 at least 'Changes' field.
 
 =item *

@@ -9,6 +9,7 @@ t/File/AnySpec.t
 t/File/Drivers/Driver.pm
 t/File/Drivers/Generate.pm
 t/File/Drivers/IO.pm
-tlib/File/SmartNL.pm
-tlib/Text/Scrub.pm
-tlib/Test/Tech.pm
+t/File/File/SmartNL.pm
+t/File/Text/Scrub.pm
+t/File/Test/Tech.pm
+t/File/Data/Secs2.pm

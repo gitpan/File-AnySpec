@@ -15,15 +15,18 @@ use warnings;
 use warnings::register;
 
 use vars qw($VERSION $DATE $FILE);
-$VERSION = '1.1';
-$DATE = '2003/07/26';
+$VERSION = '1.13';
+$DATE = '2004/04/09';
 $FILE = __FILE__;
+
+use File::Spec; # Added mkpath option, 2003/11/10
+use File::Path; # Added mkpath option, 2003/11/10
 
 use SelfLoader;
 
-1
-
-__DATA__
+# 1
+# 
+# __DATA__
 
 ######
 # Perl 5.6 introduced a built-in smart nl functionality as an IO discipline :crlf.
@@ -97,30 +100,42 @@ sub fin
 #
 sub fout
 {
-   my (undef, $file, $data, $options_p) = @_;
+   my (undef, $file, $data, $options) = @_;
 
-   if($options_p->{append}) {
+   ######
+   # Added mkdir option, 2003/11/10
+   # 
+   unless( $options->{no_mkpath} ) {
+       my ($vol, $dirs) = File::Spec->splitpath($file);
+       $dirs = File::Spec->catdir($vol,$dirs) if $vol && $dirs;
+       mkpath $dirs if $dirs;
+   }
+
+   if($options->{append}) {
        unless(open OUT, ">>$file") {
            warn("# Cannot open >$file\n");
            return undef;
        }
    }
    else {
+
        unless(open OUT, ">$file") {
            warn("# Cannot open >$file\n");
            return undef;
        }
+
    }
-   binmode OUT if $options_p->{binary};
+
+   binmode OUT if $options->{binary};
    my $char_out = print OUT $data;
    unless(close(OUT)) {
        warn( "# Cannot close $file\n");
        return undef;
    }
+
    $char_out; 
+
 }
-
-
 
 1
 

@@ -1,3 +1,273 @@
+NAME
+    File::AnySpec - perform operations on foreign (remote) file names
+
+SYNOPSIS
+     ###### 
+     # Subroutine Interface
+     #
+     use File::AnySpec qw(fspec2fspec pm2fspec os2fspec fspec2os fspec_glob fspec2pm);
+
+     $file                                 = fspec2fspec($from_fspec, $to_fspec $fspec_file, [$nofile])
+     $os_file                              = fspec2os($fspec, $file, [$no_file])
+     $fspec_file                           = os2fspec($fspec, $file, [$no_file])
+
+     $pm                                   = fspec2pm($fspec, $require_file)
+     ($abs_file, $inc_path, $require_file) = pm2fspec($fspec, $pm)
+
+     @globed_files                         = fspec_glob($fspec, @files)
+
+     ###### 
+     # Class Interface
+     #
+     use File::AnySpec
+     use vars qw(@ISA)
+     @ISA = qw(File::AnySpec)
+
+     $file                                 = __PACKAGE__->fspec2fspec($from_fspec, $to_fspec $fspec_file, [$nofile])
+     $os_file                              = __PACKAGE__->fspec2os($fspec, $file, [$no_file])
+     $fspec_file                           = __PACKAGE__->os2fspec($fspec, $file, [$no_file])
+
+     $pm                                   = __PACKAGE__->fspec2pm($fspec, $require_file)
+     ($abs_file, $inc_path, $require_file) = __PACKAGE__->pm2fspec($fspec, $pm)
+
+     @globed_files                         = __PACKAGE__->fspec_glob($fspec, @files)
+
+DESCRIPTION
+    Methods in this package, perform operations on file specifications for
+    operating systems other then the current site operating system. The
+    input variable *$fspec* tells the methods in this package the file
+    specification for file names used as input to the methods. Thus, when
+    using methods in this package, the method may load up to two File::Spec
+    submodules methods and neither of them is a submodule for the current
+    site operating system.
+
+    Supported operating system file specifications are as follows:
+
+     MacOS
+     MSWin32
+     os2
+     VMS
+     epoc
+
+    Of course since, the variable *$^O* contains the file specification for
+    the current site operating system, it may be used for the *$fspec*
+    variable.
+
+  fspec_glob method
+      @globed_files = File::AnySpec->fspec_glob($fspec, @files)
+
+    The *fspec_glob* method BSD globs each of the files in *@files* where
+    the file specification for each of the files is *$fspec*.
+
+  fspec2fspec method
+     $to_file = File::AnySpec->fspec2fspec($from_fspec, $to_fspec $from_file, $nofile)
+
+    THe *fspec2fspec* method translate the file specification for
+    *$from_file* from the *$from_fspec* to the *$to_fpsce*. Supplying
+    anything for *$nofile*, tells the *fspec2fspec* method that *$from_file*
+    is a directory tree; otherwise, it is a file.
+
+  fspec2os method
+      $os_file = File::AnySpec->fspec2os($fspec, $file, $no_file)
+
+    The *fspec2os* method translates a file specification, *$file*, from the
+    current operating system file specification to the *$fspec* file
+    specification. Supplying anything for *$nofile*, tells the *fspec2fspec*
+    method that *$from_file* is a directory tree; otherwise, it is a file.
+
+  fspec2pm method
+     $pm_file = File::AnySpec->fspec2pm( $fspec, $relative_file )
+
+    The *fspec2pm* method translates a filespecification *$file* in the
+    *$fspce* format to the Perl module formate.
+
+  os2fspec method
+     $file = File::AnySpec->os2fspec($fspec, $os_file, $no_file)
+
+    The *fspec2os* method translates a file specification, *$file*, from the
+    current operating system file specification to the *$fspec* file
+    specification. Supplying anything for *$nofile*, tells the *fspec2fspec*
+    method that *$from_file* is a directory tree; otherwise, it is a file.
+
+REQUIREMENTS
+    Coming soon.
+
+DEMONSTRATION
+     ~~~~~~ Demonstration overview ~~~~~
+
+    Perl code begins with the prompt
+
+     =>
+
+    The selected results from executing the Perl Code follow on the next
+    lines. For example,
+
+     => 2 + 2
+     4
+
+     ~~~~~~ The demonstration follows ~~~~~
+
+     =>     use File::Spec;
+
+     =>     use File::Package;
+     =>     my $fp = 'File::Package';
+
+     =>     my $as = 'File::AnySpec';
+
+     =>     my $loaded = '';
+     =>     my @drivers;
+     =>     my @files;
+     => my $errors = $fp->load_package( $as)
+     => $errors
+     ''
+
+     => $as->fspec2fspec( 'Unix', 'MSWin32', 'File/FileUtil.pm')
+     'File\FileUtil.pm'
+
+     => $as->os2fspec( 'Unix', ($as->fspec2os( 'Unix', 'File/FileUtil.pm')))
+     'File/FileUtil.pm'
+
+     => $as->os2fspec( 'MSWin32', ($as->fspec2os( 'MSWin32', 'Test\\TestUtil.pm')))
+     'Test\TestUtil.pm'
+
+     => @drivers = sort $as->fspec_glob('Unix','Drivers/G*.pm')
+     => join (', ', @drivers)
+     'Drivers\Generate.pm'
+
+     => $as->fspec2pm('Unix', 'File/AnySpec.pm')
+     'File::AnySpec'
+
+     => $as->pm2fspec( 'Unix', 'File::Basename')
+     '/Perl/lib/File/Basename.pm'
+     '/Perl/lib'
+     'File/Basename.pm'
+
+QUALITY ASSURANCE
+    Running the test script 'AnySpec.t' found in the
+    "File-AnySpec-$VERSION.tar.gz" distribution file verifies the
+    requirements for this module.
+
+    All testing software and documentation stems from the Software Test
+    Description (STD) program module 't::File::AnySpec', found in the
+    distribution file "File-AnySpec-$VERSION.tar.gz".
+
+    The 't::File::AnySpec' STD POD contains a tracebility matix between the
+    requirements established above for this module, and the test steps
+    identified by a 'ok' number from running the 'AnySpec.t' test script.
+
+    The t::File::AnySpec' STD program module '__DATA__' section contains the
+    data to perform the following:
+
+    *   to generate the test script 'AnySpec.t'
+
+    *   generate the tailored STD POD in the 't::File::AnySpec' module,
+
+    *   generate the 'AnySpec.d' demo script,
+
+    *   replace the POD demonstration section herein with the demo script
+        'AnySpec.d' output, and
+
+    *   run the test script using Test::Harness with or without the verbose
+        option,
+
+    To perform all the above, prepare and run the automation software as
+    follows:
+
+    *   Install "Test_STDmaker-$VERSION.tar.gz" from one of the
+        respositories only if it has not been installed:
+
+        *   http://www.softwarediamonds/packages/
+
+        *   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/
+
+    *   manually place the script tmake.pl in
+        "Test_STDmaker-$VERSION.tar.gz' in the site operating system
+        executable path only if it is not in the executable path
+
+    *   place the 't::File::AnySpec' at the same level in the directory
+        struture as the directory holding the 'File::AnySpec' module
+
+    *   execute the following in any directory:
+
+         tmake -test_verbose -replace -run -pm=t::File::AnySpec
+
+NOTES
+  FILES
+    The installation of the "File-AnySpec-$VERSION.tar.gz" distribution file
+    installs the 'Docs::Site_SVD::File_AnySpec' SVD program module.
+
+    The __DATA__ data section of the 'Docs::Site_SVD::File_AnySpec' contains
+    all the necessary data to generate the POD section of
+    'Docs::Site_SVD::File_AnySpec' and the "File-AnySpec-$VERSION.tar.gz"
+    distribution file.
+
+    To make use of the 'Docs::Site_SVD::File_AnySpec' SVD program module,
+    perform the following:
+
+    *   install "ExtUtils-SVDmaker-$VERSION.tar.gz" from one of the
+        respositories only if it has not been installed:
+
+        *   http://www.softwarediamonds/packages/
+
+        *   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/
+
+    *   manually place the script vmake.pl in
+        "ExtUtils-SVDmaker-$VERSION.tar.gz' in the site operating system
+        executable path only if it is not in the executable path
+
+    *   Make any appropriate changes to the __DATA__ section of the
+        'Docs::Site_SVD::File_AnySpec' module. For example, any changes to
+        'File::AnySpec' will impact the at least 'Changes' field.
+
+    *   Execute the following:
+
+         vmake readme_html all -pm=Docs::Site_SVD::File_AnySpec
+
+  AUTHOR
+    The holder of the copyright and maintainer is
+
+    <support@SoftwareDiamonds.com>
+
+  COPYRIGHT NOTICE
+    Copyrighted (c) 2002 Software Diamonds
+
+    All Rights Reserved
+
+  BINDING REQUIREMENTS NOTICE
+    Binding requirements are indexed with the pharse 'shall[dd]' where dd is
+    an unique number for each header section. This conforms to standard
+    federal government practices, 490A ("3.2.3.6" in STD490A). In accordance
+    with the License, Software Diamonds is not liable for any requirement,
+    binding or otherwise.
+
+  LICENSE
+    Software Diamonds permits the redistribution and use in source and
+    binary forms, with or without modification, provided that the following
+    conditions are met:
+
+    1   Redistributions of source code must retain the above copyright
+        notice, this list of conditions and the following disclaimer.
+
+    2   Redistributions in binary form must reproduce the above copyright
+        notice, this list of conditions and the following disclaimer in the
+        documentation and/or other materials provided with the distribution.
+
+    SOFTWARE DIAMONDS, http::www.softwarediamonds.com, PROVIDES THIS
+    SOFTWARE 'AS IS' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT
+    NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+    FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL SOFTWARE
+    DIAMONDS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+    SPECIAL,EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+    TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,DATA, OR
+    PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+    LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING USE
+    OF THIS SOFTWARE, EVEN IF ADVISED OF NEGLIGENCE OR OTHERWISE) ARISING IN
+    ANY WAY OUT OF THE POSSIBILITY OF SUCH DAMAGE.
+
+  SEE_ALSO:
+    File::Spec
+    File::AnySpec
+
 Title Page
      Software Version Description
 
@@ -5,11 +275,11 @@ Title Page
 
       File::AnySpec - Manipulate file specifications for foreign operating systems
 
-     Revision: D
+     Revision: E
 
-     Version: 0.05
+     Version: 0.06
 
-     Date: 2003/09/12
+     Date: 2004/04/09
 
      Prepared for: General Public 
 
@@ -37,7 +307,7 @@ Title Page
     systems.
 
   1.3 Document overview.
-    This document releases File::AnySpec version 0.05 providing a
+    This document releases File::AnySpec version 0.06 providing a
     description of the inventory, installation instructions and other
     information necessary to utilize and track this release.
 
@@ -46,10 +316,14 @@ Title Page
     specification.
 
   3.1 Inventory of materials released.
-    This document releases the file found at the following repository(s):
+    This document releases the file
 
-       http://www.softwarediamonds/packages/File-AnySpec-0.05
-       http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/File-AnySpec-0.05
+     File-AnySpec-0.06.tar.gz
+
+    found at the following repository(s):
+
+      http://www.softwarediamonds/packages/
+      http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/
 
     Restrictions regarding duplication and license provisions are as
     follows:
@@ -93,20 +367,21 @@ Title Page
 
      file                                                         version date       comment
      ------------------------------------------------------------ ------- ---------- ------------------------
-     lib/Docs/Site_SVD/File_AnySpec.pm                            0.05    2003/09/12 revised 0.04
-     MANIFEST                                                     0.05    2003/09/12 generated, replaces 0.04
-     Makefile.PL                                                  0.05    2003/09/12 generated, replaces 0.04
-     README                                                       0.05    2003/09/12 generated, replaces 0.04
-     lib/File/AnySpec.pm                                          1.12    2003/09/12 revised 1.11
-     t/File/AnySpec.d                                             0.01    2003/07/26 unchanged
-     t/File/AnySpec.pm                                            0.01    2003/06/07 unchanged
-     t/File/AnySpec.t                                             0.09    2003/09/12 revised 0.08
+     lib/Docs/Site_SVD/File_AnySpec.pm                            0.06    2004/04/09 revised 0.05
+     MANIFEST                                                     0.06    2004/04/09 generated, replaces 0.05
+     Makefile.PL                                                  0.06    2004/04/09 generated, replaces 0.05
+     README                                                       0.06    2004/04/09 generated, replaces 0.05
+     lib/File/AnySpec.pm                                          1.13    2004/04/09 revised 1.12
+     t/File/AnySpec.d                                             0.03    2004/04/09 revised 0.02
+     t/File/AnySpec.pm                                            0.02    2004/04/09 revised 0.01
+     t/File/AnySpec.t                                             0.1     2004/04/09 revised 0.09
      t/File/Drivers/Driver.pm                                     0.02    2003/07/04 unchanged
      t/File/Drivers/Generate.pm                                   0.02    2003/07/04 unchanged
      t/File/Drivers/IO.pm                                         0.02    2003/07/04 unchanged
-     tlib/File/SmartNL.pm                                         1.12    2003/09/12 unchanged
-     tlib/Text/Scrub.pm                                           1.09    2003/09/12 unchanged
-     tlib/Test/Tech.pm                                            1.13    2003/09/12 revised 1.1
+     t/File/File/SmartNL.pm                                       1.13    2004/04/09 new
+     t/File/Text/Scrub.pm                                         1.11    2004/04/09 new
+     t/File/Test/Tech.pm                                          1.17    2004/04/09 new
+     t/File/Data/Secs2.pm                                         1.15    2004/04/09 new
 
   3.3 Changes
     Changes are as follows:
@@ -194,7 +469,7 @@ Title Page
 
           File::AnySpec - Manipulate file specifications for foreign operating systems
 
-         Revision: D
+         Revision: E
 
         [snip]
 
@@ -330,9 +605,22 @@ Title Page
     File-AnySpec-0.05
         Added subroutine interfaces.
 
-        Use Archive::TarGzip that uses modd 777 for directories instead of
-        666. Started to get emails from Unix about untar not being able to
-        change to a directory with mod of 666.
+        Use Archive::TarGzip 0.02 that uses modd 777 for directories instead
+        of 666. Started to get emails from Unix about untar not being able
+        to change to a directory with mod of 666.
+
+    File-AnySpec-0.06
+        Added the 'Data-Secs2' to the 'tlib' test library. Upgraded to the
+        'Test-Tech' module that uses the 'Data-Secs2' module.
+
+        The lastest build of "Test::STDmaker" expects the test library in
+        the same directory as the test script. Coordiated with the lastest
+        Test::STDmaker by moving the test library from tlib to "t/File", the
+        same directory as the test script and deleting the test library
+        File::TestPath program module.
+
+        Changed from the obsolete "File::PM2File" program module to the
+        "File::Where" program module.
 
   3.4 Adaptation data.
     This installation requires that the installation site has the Perl
@@ -350,21 +638,38 @@ Title Page
     support are as follows:
 
     Installation Instructions.
-        To installed the release file, use the CPAN module in the Perl
-        release or the INSTALL.PL script at the following web site:
+        To installed the release file, use the CPAN module pr PPM module in
+        the Perl release or the INSTALL.PL script at the following web site:
 
          http://packages.SoftwareDiamonds.com
 
         Follow the instructions for the the chosen installation software.
 
-        The distribution file is at the following respositories:
+        If all else fails, the file may be manually installed. Enter one of
+        the following repositories in a web browser:
 
-           http://www.softwarediamonds/packages/File-AnySpec-0.05
-           http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/File-AnySpec-0.05
+          http://www.softwarediamonds/packages/
+          http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/
+
+        Right click on 'File-AnySpec-0.06.tar.gz' and download to a
+        temporary installation directory. Enter the following where $make is
+        'nmake' for microsoft windows; otherwise 'make'.
+
+         gunzip File-AnySpec-0.06.tar.gz
+         tar -xf File-AnySpec-0.06.tar
+         perl Makefile.PL
+         $make test
+         $make install
+
+        On Microsoft operating system, nmake, tar, and gunzip must be in the
+        exeuction path. If tar and gunzip are not install, download and
+        install unxutils from
+
+         http://packages.softwarediamonds.com
 
     Prerequistes.
-         'File::Package' => '1.1',
-         'File::PM2File' => '1.1',
+         'File::Package' => '1.12',
+         'File::Where' => '0.03',
 
     Security, privacy, or safety precautions.
         None.
